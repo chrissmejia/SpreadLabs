@@ -1,0 +1,48 @@
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+
+{% load admin_static %}
+        	<a href="{% url 'stats:app' app.id %}">
+        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        		<img src="{% static "images/v1/menu/sub/home.png" %}" width="30">
+        		<div class="name color_purple">General</div>
+        	</div>
+        	</a>
+
+        	<a href="{% url 'stats:app_environment' app.id %}">
+        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        		<img src="{% static "images/v1/menu/sub/browser.png" %}" width="30">
+        		<div class="name color_purple">Ambiente</div>
+        	</div>
+        	</a>
+
+        	<a href="{% url 'stats:app_system' app.id %}">
+        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        		<img src="{% static "images/v1/menu/sub/system.png" %}" width="30">
+        		<div class="name color_purple">Sistema</div>
+        	</div>
+        	</a>
+
+        	<a href="{% url 'stats:app_advanced' app.id %}">
+        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        		<img src="{% static "images/v1/menu/sub/html5.png" %}" width="30">
+        		<div class="name color_purple">Avanzado</div>
+        	</div>
+        	</a>

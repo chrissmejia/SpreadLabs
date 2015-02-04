@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+
+{% load admin_static %}
+{% block title %}Dashboard{% endblock %}
+{% block breadcrumbs %}
+	<li><a href="{% url 'dashboard:index' %}" title="Dashboard">Dashboard</a></li>
+{% endblock %}
+{% block content %}
+<script>
+$(document).ready(function()
+{   
+    $( ".bubbles" ).hover(function()
+    {
+        //stuff to do on mouseenter
+        var description = $(this).find('.description');
+        description.css('display', 'inline');
+    }
+    , function() {
+        //stuff to do on mouseleave
+        var description = $(this).find('.description');
+        description.css('display', 'none');
+    });
+});
+</script>
+<article class="container_12">
+<!--            <section class="grid_4">
+				<h1>Módulos</h1>
+				
+				<ul class="favorites no-margin with-tip" title="Ver módulo">
+					
+					<li>
+						<img src="{% static "images/icons/apps.png" %}" width="48" height="48">
+						<a href="{ url 'apps:index' }">Aplicaciones<br>
+						<small>Aplicaciones &gt; Principal</small></a>
+						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+					</li>
+		</section>		
+-->		<section class="grid_12">
+                    <section class="grid_12">
+                            <div class="block-border"><div class="block-content">
+                                    <h1>Campañas</h1>
+
+                                    <ul class="campaigns_index favorites no-margin with-tip" title="Ver campaña">
+                                    	{% for campaign in campaigns %}
+                                        	{% if campaign.fb_online %}
+                                                <li>
+                                                        <img src="https://graph.facebook.com/{{ campaign.facebook_page_id }}/picture" width="48" height="48">
+                                                        <a href="{% url 'dashboard:details' campaign_id=campaign.id %}">{{ campaign.name }}<br>
+                                                            <small>Membresía: {{ campaign.membership.name }}</small>
+                                                            <div class="right">
+                                                                <div class="bubbles"><img src="{% static "images/app/icons/apps_1616.png" %}" width="16" height="16"> {{ campaign.apps|length }}<div class="description"> aplicaciones</div></div>
+                                                            </div> 
+                                                            <div class="right">
+                                                                <div class="bubbles"><img src="{% static "images/app/icons/talking.png" %}" width="16" height="16"> {{ campaign.talking_about_count }}<div class="description"> hablando de esto</div></div>
+                                                            </div> 
+                                                            <div class="right">
+                                                                <div class="bubbles"><img src="{% static "images/app/icons/like.png" %}" width="16" height="16"> {{ campaign.likes }}<div class="description"> seguidores</div></div>
+                                                            </div>
+                                                        </a>
+                                                <!--      <ul class="mini-menu">
+                                                                <li><a href="#" title="Move up"><img src="<?php echo $this->resourceUrl(); ?>/images/icons/fugue/arrow-090.png" width="16" height="16"></a></li>
+                                                                <li><a href="#" title="Move down"><img src="<?php echo $this->resourceUrl(); ?>/images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+                                                                <li><a href="#" title="Delete"><img src="<?php echo $this->resourceUrl(); ?>/images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+                                                        </ul> -->
+                                                </li>
+	    				                    {% endif %}
+                                        {% endfor %}
+                                    </ul>
+				                </div><div class="block-content">
+                                    <h1>Sin permisos de Facebook</h1>
+                                    <ul class="campaigns_index favorites no-margin with-tip" title="Ver campaña">
+                                    	{% for campaign in campaigns %}
+                                        	{% if not campaign.fb_online %}
+                                                <li>
+                                                    <img src="https://graph.facebook.com/{{ campaign.facebook_page_id }}/picture" width="48" height="48">
+                                                	<div class="a">{{ campaign.name }}<br>
+                                                            <small>Membresía: {{ campaign.membership.name }}</small>
+                                                            <div class="right">
+                                                                <div class="bubbles"><img src="{% static "images/app/icons/apps_1616.png" %}" width="16" height="16"> {{ campaign.apps|length }}<div class="description"> aplicaciones</div></div>
+                                                            </div> 
+                                                            <div class="right">
+                                                                <div class="bubbles"><img src="{% static "images/app/icons/talking.png" %}" width="16" height="16"> {{ campaign.talking_about_count }}<div class="description"> hablando de esto</div></div>
+                                                            </div> 
+                                                            <div class="right">
+                                                                <div class="bubbles"><img src="{% static "images/app/icons/like.png" %}" width="16" height="16"> {{ campaign.likes }}<div class="description"> seguidores</div></div>
+                                                            </div>
+                                                <!--      <ul class="mini-menu">
+                                                                <li><a href="#" title="Move up"><img src="<?php echo $this->resourceUrl(); ?>/images/icons/fugue/arrow-090.png" width="16" height="16"></a></li>
+                                                                <li><a href="#" title="Move down"><img src="<?php echo $this->resourceUrl(); ?>/images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+                                                                <li><a href="#" title="Delete"><img src="<?php echo $this->resourceUrl(); ?>/images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+                                                        </ul> -->
+                                                    </div>
+                                                </li>
+	    				                    {% endif %}
+                                        {% endfor %}
+                                    </ul>
+
+    <!--				<form class="form" name="stats_options" id="stats_options" method="post" action="">
+                                            <fieldset class="grey-bg no-margin">
+                                                    <legend>Add favourite</legend>
+                                                    <p class="input-with-button">
+                                                            <label for="simple-action">Select page</label>
+                                                            <select name="simple-action" id="simple-action">
+                                                                    <option value=""></option>
+                                                                    <option value="1">Page 1</option>
+                                                                    <option value="2">Page 2</option>
+                                                            </select>
+                                                            <button type="button">Add</button>
+                                                    </p>
+                                            </fieldset>
+                                    </form>-->
+                                    
+                                    <ul class="message no-margin">
+                                    	{% if campaigns|length > 1 %}
+					                        <li>{{ campaigns|length }} campañas</li>
+					                    {% endif %}
+				                    </ul>
+                            </div></div>
+
+                    </section>
+
+
+		</section>
+		
+		<div class="clear"></div>
+		
+	</article>
+{% endblock %}

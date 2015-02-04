@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+
+{% load admin_static %}
+{% block title %}Dashboard{% endblock %}
+{% block breadcrumbs %}
+	<li><a href="{% url 'dashboard:index' %}" title="Dashboard">Dashboard</a></li>
+	<li><a href="{% url 'dashboard:details' campaign.id %}" title="Apps">{{ campaign.name }}</a></li>
+{% endblock %}
+{% block content %}
+	<article class="container_12">
+            <section class="grid_6">
+			<div class="block-border"><div class="block-content">
+				<h1>Aplicaciones</h1>
+				<div class="block-controls">
+					<ul class="controls-buttons">
+						<li><a href="{% url 'apps:index' campaign.id %}"><strong>Ver detalle</strong></a></li>
+					</ul>
+				</div>
+				
+				<ul class="favorites no-margin with-tip" title="Estadísticas generales">
+					
+					<li>
+						<img src="{% static "images/app/icons/app.png" %}" width="48" height="48">
+						<div class="a">{{ apps|length }} aplicaciones<br>
+						<small>Cantidad de aplicaiones nativas</small></div>
+<!--						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+-->					</li>
+					<li>
+						<img src="{% static "images/app/icons/users.png" %}" width="48" height="48">
+						<div class="a">{{ views }} vistas<br>
+						<small>Cantidad de visitas mensuales</small></div>
+<!--						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+-->					</li>
+					<li>
+						<img src="{% static "images/app/icons/visits.png" %}" width="48" height="48">
+						<div class="a">{{ visits }} visitas<br>
+						<small>Cantidad de vistas mensuales con al menos 1 hora de diferencia</small></div>
+<!--						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+-->					</li>
+					<li>
+						<img src="{% static "images/app/icons/user.png" %}" width="48" height="48">
+						<div class="a">{{ visitors }} visitantes<br>
+						<small>Cantidad de visitantes mensuales</small></div>
+<!--						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+-->					</li>
+			</div></div>
+		</section>		
+		<section class="grid_6">
+        <div class="block-border"><div class="block-content">
+            <h1>Estadísticas</h1>
+				<div class="block-controls">
+					<ul class="controls-buttons">
+						<li class="controls-block">Próximamente</li>
+					</ul>
+				</div>
+
+                <ul class="favorites no-margin with-tip" title="Ver campaña">
+					<li>
+						<img src="{% static "images/app/icons/app.png" %}" width="48" height="48">
+						<div class="a">{{ campaign.likes }} seguidores<br>
+						<small>Cantidad de seguidores totales</small></div>
+<!--						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+-->					</li>
+					<li>
+						<img src="{% static "images/app/icons/app.png" %}" width="48" height="48">
+						<div class="a">{{ campaign.likes_28_days.value }} seguidores nuevos este mes<br>
+						<small>Desde {{ campaign.likes_28_days.since|date:"d/m/Y" }} hasta el {{ campaign.likes_28_days.until|date:"d/m/Y" }}</small></div>
+<!--						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+-->					</li>
+					<li>
+						<img src="{% static "images/app/icons/app.png" %}" width="48" height="48">
+						<div class="a">{{ campaign.likes_7_days.value }} seguidores nuevos esta semana<br>
+						<small>Desde {{ campaign.likes_7_days.since|date:"d/m/Y" }} hasta el {{ campaign.likes_28_days.until|date:"d/m/Y" }}</small></div>
+<!--						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+-->					</li>
+					<li>
+						<img src="{% static "images/app/icons/app.png" %}" width="48" height="48">
+						<div class="a">{{ campaign.likes_last_day.value }} seguidores nuevos el {{ campaign.likes_last_day.date|date:"d" }}<br>
+						<small>El {{ campaign.likes_last_day.date|date:"d/m/Y" }}</small></div>
+<!--						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+-->					</li>
+					<li>
+						<img src="{% static "images/app/icons/users.png" %}" width="48" height="48">
+						<div class="a">{{ campaign.talking_about_count }} personas hablando de esto<br>
+						<small>Cantidad de visitas mensuales</small></div>
+<!--						<ul class="mini-menu" style="opacity: 0;">
+							<li><a href="#" title="Move down"><img src="images/icons/fugue/arrow-270.png" width="16" height="16"></a></li>
+							<li><a href="#" title="Delete"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"> Delete</a></li>
+						</ul>
+-->					</li>
+                </ul>
+            </div></div>
+    		<div class="clear"></div>
+		</section>
+		
+		<div class="clear"></div>
+		
+	</article>
+{% endblock %}

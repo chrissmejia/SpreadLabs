@@ -1,0 +1,109 @@
+{% extends "basev1.html" %}
+
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+
+{% load admin_static %}
+{% load nvd3_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block breadcrumbs %}
+	<li><a href="{% url 'dashboard:index' %}" title="Dashboard">Dashboard</a></li>
+	<li><a href="{% url 'stats:index' %}" title="Estadísticas">Estadísticas</a></li>
+	<li><a href="{% url 'stats:campaign' campaign.id %}" title="{{ campaign.name }}">{{ campaign.name }}</a></li>
+	<li><a href="{% url 'stats:app' app.id %}" title="{{ app.name }}">{{ app.name }}</a></li>
+	<li><a href="{% url 'stats:app_environment' app.id %}" title="Ambiente">Ambiente</a></li>
+{% endblock %}
+{% block extrahead %}
+    {% include_chart_jscss %}
+    {% load_chart "pieChart" chartdata_os "piechart_os_container" extra %}
+    {% load_chart "pieChart" chartdata_browsers "piechart_chartdata_browsers" extra %}
+    {% load_chart "pieChart" chartdata_chrome "piechart_chartdata_chrome" extra %}
+    {% load_chart "pieChart" chartdata_firefox "piechart_chartdata_firefox" extra %}
+    {% load_chart "pieChart" chartdata_safari "piechart_chartdata_safari" extra %}
+    {% load_chart "pieChart" chartdata_ie "piechart_chartdata_ie" extra %}
+<script>
+$(function() {
+	//load main graph
+	$("#main_chart").load("{% url 'stats:extended:main_app_enviroment' app.id %}");
+	
+    $('.ch-info .views').each(function(index, element) {
+    	child = $(element).find('div');
+        child.css('font-size', '1em');
+        while( child.height() > $(element).height() ) {
+            child.css('font-size', (parseInt(child.css('font-size')) - 1) + "px" );
+        }
+    });
+    
+    // Fix miss clicks
+    $('.campaing_a').mousedown(function(e) {
+    	window.location.href = $(this).attr('href');
+    });
+});
+</script>    
+    
+{% endblock %}
+{% block content %}
+
+<div id="main_extra_head">
+    <div id="main_chart" class="loading">
+	    <img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
+    </div>
+    <div class="menu" id="sub_menu">
+        {% include "stats/menus/app.html" %}
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="global_data_div">
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Chrome|default:"0" }}</div><div class="text_submenu">Chrome</div></div>
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Firefox|default:"0" }}</div><div class="text_submenu">Firefox</div></div>
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Safari|default:"0" }}</div><div class="text_submenu">Safari</div></div>
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.IE|default:"0" }}</div><div class="text_submenu">Internet Explorer</div></div>
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Other|default:"0" }}</div><div class="text_submenu">Otro</div></div>
+</div> 
+
+<div class="zebra">
+    <div class="two_blocks">
+        <h1>Vistas por sistema operativo</h1>
+        {% include_container "piechart_os_container" 300 '100%' %}
+    </div>
+    <div class="two_blocks">
+        <h1>Vistas por navegador</h1>
+        {% include_container "piechart_chartdata_browsers" 300 '100%' %}
+    </div>
+    <div class="four_blocks">
+        <h2>Google Chrome</h2>
+        {% include_container "piechart_chartdata_chrome" 200 '100%' %}
+    </div>
+    <div class="four_blocks">
+        <h2>Mozilla Firefox</h2>
+        {% include_container "piechart_chartdata_firefox" 200 '100%' %}
+    </div>
+    <div class="four_blocks">
+        <h2>Apple Safari</h2>
+        {% include_container "piechart_chartdata_safari" 200 '100%' %}
+    </div>
+    <div class="four_blocks">
+        <h2>Internet Explorer</h2>
+        {% include_container "piechart_chartdata_ie" 200 '100%' %}
+    </div>
+    <div class="clear"></div>
+</div>
+
+{% endblock %}

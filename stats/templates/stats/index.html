@@ -1,0 +1,108 @@
+{% extends "basev1.html" %}
+{% load admin_static %}
+{% load nvd3_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block breadcrumbs %}
+	<li><a href="{% url 'dashboard:index' %}" title="Dashboard">Dashboard</a></li>
+	<li><a href="{% url 'stats:index' %}" title="Estadísticas">Estadísticas</a></li>
+{% endblock %}
+{% block extrahead %}
+    {% include_chart_jscss %}
+    {% load_chart "pieChart" chartdata_campaign_views "piechart_campaign_views" extra %}
+    {% load_chart "pieChart" chartdata_devices "piechart_chartdata_devices" extra %}
+    {% load_chart "pieChart" chartdata_source "piechart_chartdata_source" extra %}
+    {% load_chart "pieChart" chartdata_secure "piechart_chartdata_secure" extra %}
+<script>
+$(function() {
+	//load main graph
+	$("#main_chart").load("{% url 'stats:extended:main' %}");
+
+	$("#visits").load("{% url 'dashboard:extended:visits_count' %}");
+	
+    $('.ch-info .views').each(function(index, element) {
+    	child = $(element).find('div');
+        child.css('font-size', '1em');
+        while( child.height() > $(element).height() ) {
+            child.css('font-size', (parseInt(child.css('font-size')) - 1) + "px" );
+        }
+    });
+    
+    // Fix miss clicks
+    $('.campaing_a').mousedown(function(e) {
+    	window.location.href = $(this).attr('href');
+    });
+});
+</script>    
+    
+{% endblock %}
+{% block content %}
+
+<div id="main_extra_head">
+    <div id="main_chart" class="loading">
+	    <img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
+    </div>
+    <div class="menu" id="sub_menu">
+        {% include "stats/menus/main.html" %}
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="global_data_div">
+    <div id="views" class="submenu_item"><div class="number_submenu">{{ views_count }}</div><div class="text_submenu">Vista{{ views_count|pluralize }}</div></div>
+    <div id="visits" class="submenu_item"><div class="number_submenu"><img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading2.gif"></div><div class="text_submenu">Visitas</div></div>
+    <div id="visitors" class="submenu_item"><div class="number_submenu">{{ visitors_count }}</div><div class="text_submenu">Visitante{{ visitors_count|pluralize }}</div></div>
+</div> 
+<div id="body_content">
+	<h1>Campañas</h1>
+				<ul class="ch-grid">
+    {% for campaign in campaigns %}
+					<li>
+                        <a class="campaing_a" href="{% url 'stats:campaign' campaign_id=campaign.id %}">
+						<div class="ch-item" style="background-image: url('https://graph.facebook.com/{{ campaign.facebook_page_id }}/picture?return_ssl_resources=1&width=150&height=150'); background-size:150px 150px;">				
+							<div class="ch-info-wrap">
+								<div class="ch-info">
+									<div class="ch-info-front" style="background-image: url('https://graph.facebook.com/{{ campaign.facebook_page_id }}/picture?return_ssl_resources=1&width=150&height=150'); background-size:150px 150px;"></div>
+									<div class="ch-info-back">
+										<img class="circle" src="https://graph.facebook.com/{{ campaign.facebook_page_id }}/picture?return_ssl_resources=1&width=150&height=150" width="150">
+										<div class="views">{{ campaign.views }}</div>
+										<p>Visita{{ campaign.views|pluralize }}</p>
+									</div>	
+								</div>
+							</div>
+						</div>
+						<div class="name">{{ campaign.name }}</div>
+    					</a>
+					</li>
+    {% endfor %}
+				</ul>
+				</br></br>
+    <div class="clear"></div>
+</div>   
+
+<div>
+    <div class="two_blocks">
+        <h1>Vistas por campaña</h1>
+        {% include_container "piechart_campaign_views" 300 '100%'%}
+        </br></br>
+    </div>
+    <div class="two_blocks">
+        <h1>Vistas por dispositivo</h1>
+        {% include_container "piechart_chartdata_devices" 300 '100%'%}
+        </br></br>
+    </div>
+    <div class="clear"></div>
+</div> 
+
+<div class="zebra">
+    <div class="two_blocks">
+        <h1>Vistas por fuente</h1>
+        {% include_container "piechart_chartdata_source" 300 '100%'%}
+        </br></br>
+    </div>
+    <div class="two_blocks">
+        <h1>Conexión segura</h1>
+        {% include_container "piechart_chartdata_secure" 300 '100%' %}
+    </div>
+    </br></br>
+    <div class="clear"></div>
+</div> 
+{% endblock %}

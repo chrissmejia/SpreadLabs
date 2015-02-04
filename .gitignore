@@ -1,0 +1,8 @@
+*.pyc
+env/
+.idea/
+SpreadLabs/media/backgrounds/
+SpreadLabs/media/icos/
+SpreadLabs/media/pattern/
+SpreadLabs/media/image_links/
+SpreadLabs/static/CACHE/

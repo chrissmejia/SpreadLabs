@@ -1,0 +1,145 @@
+{% extends "basev1.html" %}
+{% load admin_static %}
+{% load nvd3_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block breadcrumbs %}
+	<li><a href="{% url 'dashboard:index' %}" title="Dashboard">Dashboard</a></li>
+	<li><a href="{% url 'stats:index' %}" title="Estadísticas">Estadísticas</a></li>
+	<li><a href="{% url 'stats:campaign' campaign.id %}" title="{{ campaign.name }}">{{ campaign.name }}</a></li>
+	<li><a href="{% url 'stats:campaign_environment' campaign.id %}" title="Ambiente">Ambiente</a></li>
+{% endblock %}
+{% block extrahead %}
+    {% include_chart_jscss %}
+    {% load_chart "pieChart" chartdata_os "piechart_os_container" extra %}
+    {% load_chart "pieChart" chartdata_browsers "piechart_chartdata_browsers" extra %}
+    {% load_chart "pieChart" chartdata_chrome "piechart_chartdata_chrome" extra %}
+    {% load_chart "pieChart" chartdata_firefox "piechart_chartdata_firefox" extra %}
+    {% load_chart "pieChart" chartdata_safari "piechart_chartdata_safari" extra %}
+    {% load_chart "pieChart" chartdata_ie "piechart_chartdata_ie" extra %}
+<script>
+$(function() {
+	//load main graph
+	$("#main_chart").load("{% url 'stats:extended:main_campaign_enviroment' campaign.id %}");
+	
+    $('.ch-info .views').each(function(index, element) {
+    	child = $(element).find('div');
+        child.css('font-size', '1em');
+        while( child.height() > $(element).height() ) {
+            child.css('font-size', (parseInt(child.css('font-size')) - 1) + "px" );
+        }
+    });
+    
+    // Fix miss clicks
+    $('.campaing_a').mousedown(function(e) {
+    	window.location.href = $(this).attr('href');
+    });
+});
+</script>    
+    
+{% endblock %}
+{% block content %}
+
+<div id="main_extra_head">
+    <div id="main_chart" class="loading">
+	    <img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
+    </div>
+    <div class="menu" id="sub_menu">
+        {% include "stats/menus/campaign.html" %}
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="global_data_div">
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Chrome|default:"0" }}</div><div class="text_submenu">Chrome</div></div>
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Firefox|default:"0" }}</div><div class="text_submenu">Firefox</div></div>
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Safari|default:"0" }}</div><div class="text_submenu">Safari</div></div>
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.IE|default:"0" }}</div><div class="text_submenu">Internet Explorer</div></div>
+    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Other|default:"0" }}</div><div class="text_submenu">Otro</div></div>
+</div> 
+<div id="body_content">
+    <h1>Aplicaci{{ active_apps|length|pluralize:"ón,ones" }} activa{{ active_apps|length|pluralize }}</h1>
+				<ul class="ch-grid-apps">
+        {% for active_app in active_apps %}
+            {% if not domain.app == active_app %}
+					<li>
+						<div class="ch-item" style="background-image: url('{{ MEDIA_URL }}{{ active_app.picture }}'); background-size:158px 100px;">				
+							<div class="ch-info-wrap">
+								<div class="ch-info">
+									<div class="ch-info-front" style="background-image: url('{{ MEDIA_URL }}{{ active_app.picture }}'); background-size:158px 100px;"></div>
+									<div class="ch-info-back">
+                                        <a href="{% url 'stats:app_environment' active_app.id %}">
+                                            <ul class="mini-menu">
+        										<div class="views">Ver</div>
+		        								<p>detalle</p>
+                                            </ul> 
+    										<img src="{{ MEDIA_URL }}{{ active_app.picture }}" width="158" height="100">
+	    								</a>
+									</div>	
+								</div>
+							</div>
+						</div>
+						<div class="name">{{ active_app.name }}</div>
+					</li>
+    	    {% endif %}
+        {% endfor %}
+	</ul>
+    </br>
+
+{% if inactive_apps %}
+    <h1>Aplicaci{{ inactive_apps|length|pluralize:"ón,ones" }} inactiva{{ inactive_apps|length|pluralize }}</h1>
+	<ul class="ch-grid-apps">
+        {% for inactive_app in inactive_apps %}
+					<li>
+						<div class="ch-item" style="background-image: url('{{ MEDIA_URL }}{{ inactive_app.picture }}'); background-size:158px 100px;">				
+							<div class="ch-info-wrap">
+								<div class="ch-info">
+									<div class="ch-info-front" style="background-image: url('{{ MEDIA_URL }}{{ inactive_app.picture }}'); background-size:158px 100px;"></div>
+									<div class="ch-info-back">
+                                        <a href="{% url 'stats:app_environment' inactive_app.id %}">
+                                            <ul class="mini-menu">
+        										<div class="views">Ver</div>
+		        								<p>detalle</p>
+                                            </ul> 
+    										<img src="{{ MEDIA_URL }}{{ inactive_app.picture }}" width="158" height="100">
+	    								</a>
+									</div>	
+								</div>
+							</div>
+						</div>
+						<div class="name">{{ inactive_app.name }}</div>
+					</li>
+        {% endfor %}
+	</ul>
+    </br>
+<div class="clear"></div>
+{% endif %}
+</div>   
+
+<div>
+    <div class="two_blocks">
+        <h1>Vistas por sistema operativo</h1>
+        {% include_container "piechart_os_container" 300 '100%' %}
+    </div>
+    <div class="two_blocks">
+        <h1>Vistas por navegador</h1>
+        {% include_container "piechart_chartdata_browsers" 300 '100%' %}
+    </div>
+    <div class="four_blocks">
+        <h2>Google Chrome</h2>
+        {% include_container "piechart_chartdata_chrome" 200 '100%' %}
+    </div>
+    <div class="four_blocks">
+        <h2>Mozilla Firefox</h2>
+        {% include_container "piechart_chartdata_firefox" 200 '100%' %}
+    </div>
+    <div class="four_blocks">
+        <h2>Apple Safari</h2>
+        {% include_container "piechart_chartdata_safari" 200 '100%' %}
+    </div>
+    <div class="four_blocks">
+        <h2>Internet Explorer</h2>
+        {% include_container "piechart_chartdata_ie" 200 '100%' %}
+    </div>
+    <div class="clear"></div>
+</div>
+
+{% endblock %}

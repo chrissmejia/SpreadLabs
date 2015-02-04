@@ -1,0 +1,524 @@
+{% extends "basev1.html" %}
+
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+
+{% load admin_static %}
+{% load compress %}
+{% block title %}Detalle de aplicación{% endblock %}
+{% block breadcrumbs %}
+	<li><a href="{% url 'dashboard:index' %}" title="Dashboard">Dashboard</a></li>
+	<li><a href="{% url 'dashboard:details' campaign.id %}" title="Apps">{{ campaign.name }}</a></li>
+	<li><a href="{% url 'apps:campaign' campaign.id %}" title="Apps">Aplicaciones</a></li>
+	<li><a href="{% url 'apps:app_edit' app.id %}" title="Apps">{{ app.name }}</a></li>
+{% endblock %}
+{% block extrahead %}
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/spreadlabs/jquery-ui-1.10.3.custom.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/spreadlabs/chosen.min.css' %}" />
+    
+    <script src="{% static 'colorpicker/spectrum.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'colorpicker/spectrum.css' %}" />
+    
+    <link rel="stylesheet" href="{% static 'css/v1/jquery.mCustomScrollbar.css' %}" />
+
+    <script src="{% static "js/jquery.jeditable.mini.js" %}"></script>
+    <script src="{% static "js/jquery.jeditable.charcounter.js" %}"></script>
+    <script src="{% static "js/jquery.charcounter.js" %}"></script>
+
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'js/v1/jquery.validate.min.js' %}"></script>
+
+
+<script>
+    var _csrf_token = "{{ csrf_token }}";
+    var _core_id = "{{ this_core.id }}";
+    var _static = "{{ STATIC_URL }}";
+    var _media = "{{ MEDIA_URL }}";
+    
+    var _url_save_description = "{% url 'apps:save_description' app.id %}";
+    var _url_save_app_settings = "{% url 'apps:save_app_settings' app.id %}";
+    
+    var _url_save_url = "{% url 'apps:save_url' app.id %}";
+    
+    var _url_save_page_attrs= "{% url 'apps:save_page_attrs' app.id %}";
+    
+    var _url_save_image_link = "{% url 'apps:save_image_link' app.id %}";
+    var _url_save_image_link_attrs = "{% url 'apps:save_image_link_attrs' app.id %}";
+    var _url_save_image_link_position = "{% url 'apps:save_image_link_position' app.id %}";
+    
+    var _url_save_input = "{% url 'apps:save_input' app.id %}";
+    var _url_save_input_attrs = "{% url 'apps:save_input_attrs' app.id %}";
+    var _url_save_input_position = "{% url 'apps:save_input_position' app.id %}";
+    
+    var _url_save_youtube = "{% url 'apps:save_youtube' app.id %}";
+    var _url_save_youtube_attrs = "{% url 'apps:save_youtube_attrs' app.id %}";
+    var _url_save_youtube_position = "{% url 'apps:save_youtube_position' app.id %}";
+
+    //####### GateWay
+    var _url_app_edit = "{% url 'apps:app_edit' app.id -1 -1 %}";
+    var _like_core_id = "{{like_core.id}}";
+    //####### Delete page
+    var _url_app_edit = "{% url 'apps:app_edit' app.id %}";
+</script>
+
+{% compress js inline %}
+    <script src="{% static 'js/v1/spreadlabs/editor/general.js' %}"></script>
+    <script src="{% static 'js/v1/spreadlabs/editor/pages.js' %}"></script>
+    <script src="{% static 'js/v1/spreadlabs/editor/privacity.js' %}"></script>
+
+    <script src="{% static 'js/v1/spreadlabs/editor/tools/install.js' %}"></script>
+    <script src="{% static 'js/v1/spreadlabs/editor/tools/button.js' %}"></script>
+    <script src="{% static 'js/v1/spreadlabs/editor/tools/input.js' %}"></script>
+    <script src="{% static 'js/v1/spreadlabs/editor/tools/video.js' %}"></script>
+{% endcompress %}
+
+{% endblock %}
+{% block content %}
+	<div id="preview">
+        {% include "clients/app/render.html" %}
+    </div>
+
+
+<div id="edit_box">
+    <div id="tools" class="menu">
+        {% if campaign.membership.button_tool %}
+            <a href="#" id="tool-image-link" class="master-tool">
+                <div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+            	    <img src="{% static "images/v1/menu/sub/next.png" %}" width="30">
+                	<div class="name color_purple">Botón</div>
+                </div>
+            </a>
+        {% endif %}
+        {% if campaign.membership.youtube_tool %}
+            <a href="#" id="tool-youtube" class="master-tool">
+                <div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+            	    <img src="{% static "images/v1/menu/sub/video.png" %}" width="30">
+                	<div class="name color_purple">Video</div>
+                </div>
+            </a>
+        {% endif %}
+        {% if campaign.membership.form_tool %}
+            <a href="#" id="tool-input" class="master-tool">
+                <div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+            	    <img src="{% static "images/v1/menu/sub/edit.png" %}" width="30">
+                	<div class="name color_purple">Formulario</div>
+                </div>
+            </a>
+        {% endif %}
+    </div>
+
+    <div id="properties">
+        <div class="menu">
+        	<a id="this_object" class="hidden" href="0">
+        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        		<img src="{% static "images/v1/menu/object.png" %}" width="30">
+        		<div class="name">Botón</div>
+                <div class="clear"></div>
+        	</div>
+        	</a>
+            
+        	<a id="general_object" href="400">
+        	<div class="item hover current" color_normal="#3fa9e0" color_hover="#5db7e6">
+        		<img src="{% static "images/v1/menu/setting.png" %}" width="30">
+        		<div class="name">General</div>
+                <div class="clear"></div>
+        	</div>
+        	</a>
+
+        	<a href="800">
+        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        		<img src="{% static "images/v1/menu/page.png" %}" width="30">
+        		<div class="name">Páginas</div>
+                <div class="clear"></div>
+        	</div>
+        	</a>
+
+        	<a href="1200">
+        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        		<img src="{% static "images/v1/menu/security.png" %}" width="30">
+        		<div class="name">Privacidad</div>
+                <div class="clear"></div>
+        	</div>
+        	</a>
+        </div>
+        
+        
+    <div id="panels">
+    	<div id="selected" class="page">
+    		
+            <div id="background-object" class="block">
+    	        <div class="three_columns">
+                <h2>Fondo</h2>
+    		        <form id="background-upload" class="hidden" action="{% url 'apps:save_background' app.id %}" method="post" enctype="multipart/form-data">
+    				    {% csrf_token %}
+                        <input class="hidden" id="background-file" type="file" name="file" accept="image/jpeg">
+                        <input type="hidden" name="core" value="{{ this_core.id }}">
+                        <button class="hidden" type="submit" id="btn">Upload Files!</button> 
+                        <div class="hidden" id="results"></div>
+                    </form>
+                    <a href="#" id="background-thumb">
+                        <img src="{{ MEDIA_URL }}{{ background.image }}" width="100">
+            		</a>
+    		    <form id="background-delete" action="{% url 'apps:delete_background' app.id %}" method="post" enctype="multipart/form-data">
+    		        {% csrf_token %}
+                    <input type="hidden" name="core" value="{{ this_core.id }}">
+    			    <button id="delete" class="delete_b" type="submit">Eliminar</button>
+                </form>
+        		</div>
+    		</div>
+    		
+            <div id="image-link-object" class="block">
+    	        <div class="three_columns">
+                <h2>Imágen</h2>
+    			    <form id="image-link-upload" action="{% url 'apps:save_image_link' app.id %}" method="post" enctype="multipart/form-data">
+    				    {% csrf_token %}
+                        <input class="hidden" id="image-link-file" type="file" name="file" accept="image/jpeg,image/png">
+                        <input class="hidden" type="hidden" name="core" value="{{ this_core.id }}">
+                        <input id="id" type="hidden" name="id" value="">
+                        <button class="hidden" type="submit" id="btn">Upload Files!</button> 
+                        <div id="results"></div>
+                    </form>
+                    <a href="#" id="image-link-thumb">
+                	    <img src="" width="120">
+                	</a>
+                </div>
+    	        <div class="three_columns">
+    	        </br></br>
+                            <fieldset>
+         			            <select id="link_type" name="link_type" class="select" width="200px">
+         			                <option id="external" value="external">Enlace externo</option>
+         			            	<option id="internal" value="internal">Página interna</option>
+         			            	<option id="send" value="send">Enviar formulario</option>
+                                </select>
+                            </fieldset>
+        				    <div class="external attrs">
+                                </br><h2>Enlace externo</h2>
+        				    	<p id="link" class="edit_image_link"></p>
+        			    	</div>
+        				    <div class="internal attrs">
+                                </br><h2>Página interna</h2>
+         			            <select id="internal_page" name="internal_page" class="select" width="200px">
+              					    {% for core in cores %}
+					    		        <option id="internal_page_{{core.id}}" value="{{core.id}}" {% if core.id == this_core.id %}disabled selected{% endif %}>{{ core.name }}</option>
+                                    {% endfor %}
+                                </select>
+        			    	</div>
+                </div>
+    	        <div class="three_columns">
+    	        </br></br></br></br>
+    		        		<form id="image-link-delete" action="{% url 'apps:delete_image_link' app.id %}" method="post" enctype="multipart/form-data">
+    		        			{% csrf_token %}
+                                <input type="hidden" name="core" value="{{ this_core.id }}">
+                                    <input id="del_id" type="hidden" name="id" value="">
+    			    	        </br><button id="delete" class="delete_b" type="submit">Eliminar botón</button>
+                            </form>
+    				    </div>
+            </div>
+    		
+            <div id="youtube-object" class="block">
+    	        <div class="three_columns">
+                            <h2>Youtube id</h2>
+        				    <div class="attrs">
+        				    	<input id="id" class="hidden" type="hidden" value="">
+        				    	<p id="video" class="edit_youtube"></p>
+        			    	</div>
+    		        		<form id="youtube-delete" action="{% url 'apps:delete_youtube' app.id %}" method="post" enctype="multipart/form-data">
+    		        			{% csrf_token %}
+                                <input type="hidden" name="core" value="{{ this_core.id }}">
+        				    	<input id="id_del" class="hidden" type="hidden" name="id" value="">
+    			    	        </br><button id="delete" type="submit" class="delete_b">Eliminar</button>
+                            </form>
+    				</div>
+            </div>
+    		
+    		
+            <div id="input-object" class="block">
+    	        <div class="three_columns">
+                    <h2>Categoría de campo</h2>
+                        <fieldset>
+         			    	<select id="type" name="type" class="select" width="200px">
+                            </select>
+                        </fieldset>
+                        <div class="form advanced hidden" id="cellphone-advanced">
+            				<fieldset class="grey-bg collapsed">
+         		      			<legend><a href="#">Comprobación avanzada</a></legend>
+	        					<span class="relative">
+		        		    		<label for="cellphone-advanced-input">Inicia con</label>
+			        		        <input type="text" name="cellphone-advanced-input" id="cellphone-advanced-input" value="" class="full-width">
+				        	        <span class="check-ok"></span>
+    						        <span class="hint">
+        	            		        Separe por comas las opciones: 500,501,570,571,6,7,8
+            	                    </span>
+					        	</span>
+    	    	    		</fieldset>
+	    			    </div>
+                        <div class="form advanced hidden" id="birth-advanced">
+            				<fieldset class="grey-bg collapsed">
+         		      			<legend><a href="#">Comprobación avanzada</a></legend>
+	        					<span class="relative">
+		        				    <label for="birth-advanced-input">Filtro para menores</label>
+			        				<input type="checkbox" name="birth-advanced-input" id="birth-advanced-input" value="0" class="switch">
+    						        <span class="hint">
+        	            		         Para mayor precisión debe combinar día, mes y año de nacimiento
+            	                	</span>
+					        	</span>
+    	    	    		</fieldset>
+	    			    </div>
+					        
+					    <h2>Tamaño del texto</h2>
+                            <div id="amount"></div></br>
+                            <div id="slider"></div>
+	    	    </div>
+    	        <div class="three_columns" id="restrictions">
+    	        	<div class="custom-name">
+                        <h2>Nombre</h2>
+                        <p id="custom_name" class="edit_custom_name"></p>
+                        </br>
+                    </div>
+
+    	        	<div class="custom-type">
+                        <h2>Tipo de campo</h2>
+                            <fieldset>
+             			    	<select id="select_type" name="select_type" class="select_type" width="200px">
+             			    		<option id="text" value="text">Texto</option>
+             			    		<option id="number" value="number">Número</option>
+             			    		<option id="mail" value="mail">Correo</option>
+                                </select>
+                            </fieldset>
+                        </br> 
+                    </div>
+                    
+    	        	<div class="custom-size">
+                        <h2>Tamaño</h2>
+                        <div id="custom_size_amount"></div></br>
+                        <div id="custom_size_slider"></div>
+                    </div>
+
+    	        	<div class="custom-required">
+                        <h2><input type="checkbox" name="required" id="required" value="0" class="switch">Requerido</h2>
+                    </div>
+	    	    </div>
+    	        <div class="three_columns">                                
+                        <h2>Colores</h2>
+                            <div class="three_columns">
+                                <div class="color">
+                                    <input id="color" type='color' name='color' value='#000000' />
+                                    <p>Texto</p>
+                                </div>
+                            </div>
+                            <div class="three_columns">
+                                <div class="color">
+                                    <input id="default_color" type='color' name='default_color' value='#000000' />
+                                    <p>Inicial</p>
+                                </div>
+                            </div>
+                            <div class="three_columns">
+                                <div class="color">
+                                    <input id="error_color" type='color' name='error_color' value='#000000' />
+                                    <p>Error</p>
+                                </div>
+                            </div>
+                            </br></br></br></br>
+                                
+                            <h2>Texto inicial</h2>
+                                <p id="default" class="edit_default"></p>
+                            </br></br>
+                            
+                        <h2><input type="checkbox" name="transparent" id="transparent" value="0" class="switch">Transparencia</h2>
+                            
+    		        		<form id="input-delete" action="{% url 'apps:delete_input' app.id %}" method="post" enctype="multipart/form-data">
+    		        			{% csrf_token %}
+                                <input type="hidden" name="core" value="{{ this_core.id }}">
+        				    	<input id="id_del" class="hidden" type="hidden" name="id" value="">
+    			    	        </br><button id="delete" type="submit" class="delete_b">Eliminar campo</button>
+                            </form>
+        	    </div>    		
+    	    </div>    		
+    		
+        </div>  
+        <div class="clear"></div> 
+        
+
+
+    	<div id="general" class="page">
+	        <div id="maininfo">
+                <h2>General</h2>
+    		    <form id="icon-upload" action="{% url 'apps:save_icon' app.id %}" method="post" enctype="multipart/form-data">
+    				{% csrf_token %}
+                    <input id="icon-file" type="file" name="file" accept="image/jpeg" class="hidden">
+                    <button type="submit" id="btn" class="hidden">Upload Files!</button> 
+                    <div id="results"></div>
+                </form>
+                <a href="#" id="icon-thumb">
+        		    <img src="{{ MEDIA_URL }}{{ app.picture }}" height="96">
+        		</a>
+            	<div id="name" class="editname">{{ app.name }}</div>
+            	<div id="description" class="editdescription">{{ app.description }}</div>
+            </div>
+	        <div id="pattern">
+                <h2>Patrón de fondo</h2>
+            	<div class="control">
+    		        <form id="pattern-upload" class="hidden" action="{% url 'apps:save_app_settings' app.id %}" method="post" enctype="multipart/form-data">
+    				    {% csrf_token %}
+                        <input class="hidden" id="pattern-file" type="file" name="file" accept="image/jpeg">
+                        <input type="hidden" name="target" value="pattern_background">
+                        <button class="hidden" type="submit" id="btn">Upload Files!</button> 
+                        <div class="hidden" id="results"></div>
+                    </form>
+                    <a href="#" id="pattern-thumb">
+                   		<img src="{{ MEDIA_URL }}{{ app.pattern }}" width="150">
+            		</a>
+    			</div>
+    		        <form id="pattern-delete" class="hidden" action="{% url 'apps:delete_pattern' app.id %}" method="post" enctype="multipart/form-data">
+    		        	{% csrf_token %}
+    			    	</br><button id="delete" type="submit" class="red">Eliminar</button>
+                    </form>
+            </div>
+	        <div id="other">
+                <h2>Tamaño</h2>
+                <fieldset>
+         			<select id="resolution" name="resolution" class="select" width="200px">
+         			    <option id="facebook_res" value="810x800" {% if app.width == 810 %}selected{% endif %}>Aplicación de Facebook</option>
+         			    <option id="1024x768_res" value="1024x768" {% if app.width == 1024 %}selected{% endif %} >Web app 1024x768</option>
+         			    <option id="1280x768_res" value="1280x768" {% if app.width == 1280 %}selected{% endif %}>Web app 1280x768</option>
+                    </select>
+                </fieldset>
+                </br></br></br>
+            </div>
+        </div>  
+        <div class="clear"></div> 
+
+
+        <div id="pages" class="page">
+        	<div class="box">
+            	<ul id="page_list">
+		        {% for core in cores %}
+			        {% if core.id == this_core.id %}
+         		        <li class="current">
+         				    <div><div id="page_name">{{ core.name }}</div>
+         					    {% if this_core.order >= 1 %}
+         						    <form id="page-delete" action="{% url 'apps:save_page_attrs' app.id %}" method="post" enctype="multipart/form-data">
+         							    {% csrf_token %}
+                                            <input type="hidden" name="id" value="delete">
+                                            <input type="hidden" name="core" value="{{ this_core.id }}">
+                    			    	    <button id="delete" type="submit" class="red" style="width:100%">Eliminar</button>
+                                    </form>
+                    			{% endif %}
+         					</div>
+         				</li>
+         			{% else %}
+         					<li><div><a href="{% url 'apps:app_edit' app.id core.id %}" title="{{ core.core_app.name }}">{{ core.name }}</a></div></li>
+         		    {% endif %}
+                {% endfor %}
+				<li><div><a href="{% url 'apps:app_create_core' app.id %}" title="Agregar página"><img src="{% static 'images/icons/add.png' %}" width="16" height="16"> Agregar página</a></div></li>
+
+						
+    			{% if campaign.membership.like_page %}
+				{% if like_core.id == this_core.id %}
+				    <li class="facebook current"><div>{{like_core.name}}</div></li>
+         		{% else %}
+             		{% if app.like_page %}
+     				    <li class="facebook"><div><div id="link"><a href='{% url 'apps:app_edit' app.id -1 -1 %}' title='{{like_core.name}}'>{{like_core.name}}</a></div><div>(Solo para Facebook)</div>
+     				    	<input id='fan_page_restrict' type='checkbox' value='0' {% if app.like_page %} checked='checked' {% endif %}>
+     				    </div></li>
+     				{% else %}
+        				<li class="facebook disabled"><div><div id="link">No seguidores</div><div>(Solo para Facebook)</div>
+        					<input id='fan_page_restrict' type='checkbox' value='0' {% if app.like_page %} checked='checked' {% endif %}>
+        				</div></li>
+        			{% endif %}
+    			{% endif %}
+        	    {% endif %}
+		    	</ul>
+			
+            </div>  
+        </div>  
+        <div class="clear"></div> 
+
+        <div id="privacity" class="page">
+        	<div class="two_blocks">
+				{% if app.campaign.membership.own_domain and domain and domain.app = app %}
+	    			<h1>Enlace especiales</h1>
+					<ul>
+						<li><span><b>Directo: </b>http://{{domain.domain}}/</span></li>
+						<li><span><b>Facebook: </b>http://{{domain.domain}}/s/facebook/</span></li>
+        		        {% for url in urls %}
+         		            <li><span><b>{{url.name}}: </b>http://{{domain.domain}}/s/{{url.token}}/</span></li>
+                        {% endfor %}
+						</br>
+						(Mientras esté configurado como aplicación principal)
+					</ul>
+			    {% else %}
+				    <h1>Enlaces de seguimiento</h1>
+					<ul>
+                     	{% if app.campaign.membership.own_domain and domain %}
+    						<li><span><b>Directo: </b>http://{{domain.domain}}/app/{{ app.id }}/</span></li>
+    						
+	    					<li><span><b>Facebook: </b>http://www.facebook.com/{{ campaign.facebook_page_id }}?sk=app_{{ fb_app.facebook_app_id }}/
+	    							{% if facebook_tab_installed %}
+                                        <a target="_blank" href="{% url 'apps:fb_install' app.id %}">[Reinstalar]</a>	  
+	    							{% else %}
+                                        <a target="_blank" href="{% url 'apps:fb_install' app.id %}">[Instalar]</a>	  
+	    							{% endif %}
+	    					</span></li>
+            		        {% for url in urls %}
+         	    	            <li><span><b>{{url.name}}: </b>http://{{domain.domain}}/app/{{ app.id }}/{{url.token}}/</span></li>
+                            {% endfor %}
+         				{% else %}					
+    						<li><span><b>Directo: </b>https://spreadlabs.com/clients/app/{{ app.id }}/</span></li>
+	    					<li><span><b>Facebook: </b>https://www.facebook.com/{{ campaign.facebook_page_id }}?sk=app_{{ fb_app.facebook_app_id }}/
+	    							{% if facebook_tab_installed %}
+                                        <a target="_blank" href="{% url 'apps:fb_install' app.id %}">[Reinstalar]</a>	  
+	    							{% else %}
+                                        <a target="_blank" href="{% url 'apps:fb_install' app.id %}">[Instalar]</a>	  
+	    							{% endif %}
+	    					</span></li>
+            		        {% for url in urls %}
+         	    	            <li><span><b>{{url.name}}: </b>https://spreadlabs.com/clients/app/{{ app.id }}/{{url.token}}/</span></li>
+                            {% endfor %}
+						{% endif %}
+					</ul>        	
+			    {% endif %}
+            </div>
+            <div class="two_blocks">
+            	<h1>Nuevo enlace</h1>
+                <form id="url-add" action="#" method="post">
+                    Nombre: <input type="text" class="name" name="name" value="">
+                    </br></br>
+                    {% if app.campaign.membership.own_domain and domain and domain.app = app %}
+                    http://{{domain.domain}}/ 
+                    {% else %}
+                    https://spreadlabs.com/clients/app/{{ app.id }}/
+                    {% endif %}
+                    <input type="text" class="token" name="token" value="">
+                    </br></br>
+                    <button id="send_url" type="submit" class="delete_b">Guardar</button>
+                </form>
+            </div>
+        </div>  
+    </div>  
+
+                   
+    </div>
+    <div class="clear"></div>            
+</div>              
+    <script src="{% static 'js/v1/jquery.mCustomScrollbar.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,119 @@
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                             //
+//    SpreadLabs - Social media suite                                                          //
+//    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com     //
+//                                                                                             //
+//    This program is free software: you can redistribute it and/or modify                     //
+//    it under the terms of the GNU Affero General Public License as published                 //
+//    by the Free Software Foundation, either version 3 of the License, or                     //
+//    (at your option) any later version.                                                      //
+//                                                                                             //
+//    This program is distributed in the hope that it will be useful,                          //
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of                           //
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                            //
+//    GNU Affero General Public License for more details.                                      //
+//                                                                                             //
+//    You should have received a copy of the GNU Affero General Public License                 //
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.                    //
+//                                                                                             //
+/////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+*{
+	margin:0;
+	padding:0;
+}
+
+body{
+	color:#eee;
+	background:url('../img/page_bg.jpg') no-repeat center top #1b1b1c;
+	font:15px Calibri,Arial,sans-serif;
+	border-top:5px solid #212121;
+}
+
+#page{
+	width:74%;
+	margin:30px auto 0 auto;
+}
+
+#page #logo{
+}
+
+#page h1,
+#page h2{
+	text-indent:-9999px;
+	overflow:hidden;
+	height:84px;
+	background:url('../img/coming_soon.png') no-repeat;
+    width: 330px;
+    margin: 0 auto;
+}
+
+#page h2{
+	height:60px;
+	background:url('../img/get_notified.png') no-repeat;
+}
+
+#page #social{
+    position: relative;
+    top: 0px;
+    width: 142px;
+    margin: 0 auto;
+}
+
+
+#page #social img{
+	float: left;
+}
+
+#page form{
+	background-color:#181819;
+	display:block;
+	height:31px;
+	padding:10px;
+	position:relative;
+	width:323px;
+	margin-left:-7px;
+
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+}
+
+#email{
+	background:url('../img/submit_form.png') no-repeat;
+	border:none;
+	color:#888888;
+	height:31px;
+	left:10px;
+	line-height:31px;
+	padding-left:8px;
+	position:absolute;
+	text-shadow:1px 1px 0 #FFFFFF;
+	top:10px;
+	width:215px;
+	outline:none;
+}
+
+#submitButton{
+	background:url('../img/submit_form.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	position:absolute;
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#submitButton:hover{
+	background-position:right bottom;
+}
+
+.clear{
+	clear:both;
+}

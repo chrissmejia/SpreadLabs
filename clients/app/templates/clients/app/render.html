@@ -1,0 +1,495 @@
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+
+{% load admin_static %}
+<!doctype html>
+<!--[if lt IE 8 ]><html lang="en" class="no-js ie ie7"><![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie"><![endif]-->
+<!--[if (gt IE 8)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>{{app.name}}</title>
+{% if external  %}
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+{% load compress %}
+<script src="{% static "js/v1/jquery-1.10.2.min.js" %}"></script>
+<script src="{% static 'js/v1/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/jquery.form.js' %}"></script>
+<script>
+var _go;
+function send(go)
+{
+	_go = go;
+    if ($("#register").valid())
+    {
+        $('#register').submit();
+    }
+}
+
+{% if inputs and campaign.membership.form_tool %}
+$(document).ready(function()
+{   
+	$(".input .main").focus(function()
+    {   
+        if ($(this).val() == $(this)[0].title)
+        {
+            $(this).css("color", $(this).parent().children('.color').val());
+            $(this).val("");
+        }
+    });
+    
+    $(".input .main").blur(function()
+    {
+        if ($(this).val() == "")
+        {
+            $(this).css("color", $(this).parent().children('.default_color').val());
+            $(this).val($(this)[0].title);
+        }
+    });
+	
+	$.validator.addMethod(
+        "uniqueId", 
+        function(value, element) {
+        	return eval($.ajax({
+                url: "{% url 'clients:app:check' app.id %}",
+                type: 'POST',
+                async: false,
+                data: {id: value, csrfmiddlewaretoken: $("#register input[name='csrfmiddlewaretoken']").val()},
+            }).responseText);
+        },
+        "Identification is Already Taken"
+    );	
+	
+    $.validator.addMethod(
+        "uniqueCellphone", 
+        function(value, element) {
+        	return eval($.ajax({
+                url: "{% url 'clients:app:check' app.id %}",
+                type: 'POST',
+                async: false,
+                data: {cellphone: value, csrfmiddlewaretoken: $("#register input[name='csrfmiddlewaretoken']").val()},
+            }).responseText);
+        },
+        "Cellphone is Already Taken"
+    );	
+	
+    $.validator.addMethod(
+        "uniqueEmail", 
+        function(value, element) {
+        	return eval($.ajax({
+                url: "{% url 'clients:app:check' app.id %}",
+                type: 'POST',
+                async: false,
+                data: {email: value, csrfmiddlewaretoken: $("#register input[name='csrfmiddlewaretoken']").val()},
+            }).responseText);
+        },
+        "Email is Already Taken"
+    );	
+	
+    $.validator.addMethod(
+        "doubleLastname", 
+        function(value, element) {
+        	if (value.indexOf(" ") >= 2 && value.indexOf(" ") < (value.length - 2)) {
+        	    return true;  		
+        	} else {
+        		return false;
+        	}
+        },
+        "Double last name is required"
+    );	
+    
+    $.validator.addMethod(
+    	"notDefault", 
+    	function(value, element) {
+         return value != $(element).prop("title");
+    }, "Please specify a different (non-default) value");    
+	
+	
+	
+	
+	
+	
+	
+	
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	// validate 
+	    {% for input in inputs %}
+        {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+	// validate signup form on keyup and submit
+	$("#register").validate({
+		rules: {
+			name: {
+                            required: true,
+                            minlength: 4,
+                            maxlength: 50,
+                            notDefault: true
+			},
+			lastname: {
+                            required: true,
+                            minlength: 4,
+                            maxlength: 50,
+                            doubleLastname: true,
+                            notDefault: true,
+			},
+			id: {
+                            required: true,
+                            minlength: 9,
+                            maxlength: 12,
+                            digits: true,
+                            uniqueId: true,
+                            notDefault: true
+			},
+			cellphone: {
+                            required: true,
+                            minlength: 8,
+                            maxlength: 8,
+                            digits: true,
+                            uniqueCellphone: true,
+                            notDefault: true
+			},
+			email: {
+                            required: true,
+                            email: true,
+                            uniqueEmail: true,
+                            notDefault: true
+			},
+			day_of_birth: {
+                            required: true,
+                            digits: true,
+                            range: [1, 31],
+                            notDefault: true
+			},
+			birth_month: {
+                            required: true,
+                            digits: true,
+                            range: [1, 12],
+                            notDefault: true
+			},
+			year_of_birth: {
+                            required: true,
+                            digits: true,
+                            range: [(new Date).getFullYear() - 100, (new Date).getFullYear()],
+                            notDefault: true
+			}
+		},
+		messages: {
+			name: {
+				required: "Por favor introduce tu nombre",
+				notDefault: "Por favor introduce tu nombre",
+				maxlength: "Tu nombre debe de tener como máximo 50 letras",
+				minlength: "Tu nombre debe de tener al menos 4 letras"
+			},
+			lastname: {
+				required: "Por favor introduce tus apellidos",
+				notDefault: "Por favor introduce tus apellidos",
+				maxlength: "Tus apellidos deben de tener como máximo 50 letras",
+				minlength: "Tus apellidos deben de tener al menos 4 letras",
+				doubleLastname: "Debes introducir tus dos apellidos"
+			},
+			id: {
+				required: "Por favor introduce una cédula",
+				notDefault: "Por favor introduce una cédula",
+				maxlength: "Introduce tu número como aparece en tu cédula",
+				minlength: "Introduce tu número como aparece en tu cédula",
+                digits: "Introduce tu número como aparece en tu cédula",
+                uniqueId: "Ese número de cédula ya ha sido registrado en esta aplicación"
+			},
+			cellphone: {
+				required: "Por favor introduce un celular",
+				notDefault: "Por favor introduce un celular",
+				maxlength: "Debes introducir un número de 8 dígitos",
+				minlength: "Debes introducir un número de 8 dígitos",
+                digits: "Solo introduce números",
+                uniqueCellphone: "Ese número celular ya ha sido registrado en esta aplicación"
+			},
+			email: {
+				required: "Por favor introduce un correo",
+				notDefault: "Por favor introduce un correo",
+				email: "Por favor introduce un correo",
+				uniqueEmail: "Ese correo ya ha sido registrado en esta aplicación" 
+			},
+			day_of_birth: {
+				required: "Introduce un día",
+				notDefault: "Introduce un día",
+				range: "Introduce un día",
+				digits: "Solo introduce números"
+			},
+			birth_month: {
+				required: "Introduce un mes",
+				notDefault: "Introduce un mes",
+				range: "Introduce un mes",
+				digits: "Solo introduce números"
+			},
+			year_of_birth: {
+				required: "Introduce un año",
+				notDefault: "Introduce un año",
+				range: "Introduce un año",
+				digits: "Solo introduce números"
+			}
+		}
+	});
+	
+	$("#name").focus();
+	
+});
+
+    $('#register').ajaxForm({
+        success: function(data) {
+        	if (data.substring(0,2) != 'e~')
+        	{
+            	window.location.replace("{% url 'external:app_show' app.id source %}" + _go + "/");
+            } else {
+           	    alert('Un error ha ocurrido');
+           	    window.location.reload();
+            }
+        }
+    });
+</script>
+{% endif %}
+
+
+<script src="{% static 'js/v1/SilverlightVersion.js' %}"></script>
+<script>
+function getFlashVersion(){
+  // ie
+  try {
+    try {
+      // avoid fp6 minor version lookup issues
+      // see: http://blog.deconcept.com/2006/01/11/getvariable-setvariable-crash-internet-explorer-flash-6/
+      var axo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash.6');
+      try { axo.AllowScriptAccess = 'always'; }
+      catch(e) { return '6,0,0'; }
+    } catch(e) {}
+    return new ActiveXObject('ShockwaveFlash.ShockwaveFlash').GetVariable('$version').replace(/\D+/g, ',').match(/^,?(.+),?$/)[1];
+  // other browsers
+  } catch(e) {
+    try {
+      if(navigator.mimeTypes["application/x-shockwave-flash"].enabledPlugin){
+        return (navigator.plugins["Shockwave Flash 2.0"] || navigator.plugins["Shockwave Flash"]).description.replace(/\D+/g, ",").match(/^,?(.+),?$/)[1];
+      }
+    } catch(e) {}
+  }
+  return 'None';
+}
+
+function isCanvasSupported(){
+  var elem = document.createElement('canvas');
+  return !!(elem.getContext && elem.getContext('2d'));
+}
+
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
+function webgl_detect(return_context)
+{
+    if (!!window.WebGLRenderingContext) {
+        var canvas = document.createElement("canvas"),
+             names = ["webgl", "experimental-webgl", "moz-webgl", "webkit-3d"],
+           context = false;
+ 
+        for(var i=0;i<4;i++) {
+            try {
+                context = canvas.getContext(names[i]);
+                if (context && typeof context.getParameter == "function") {
+                    // WebGL is enabled
+                    if (return_context) {
+                        // return WebGL object if the function's argument is present
+                        return {name:names[i], gl:context};
+                    }
+                    // else, return just true
+                    return true;
+                }
+            } catch(e) {}
+        }
+ 
+        // WebGL is supported, but disabled
+        return false;
+    }
+ 
+    // WebGL not supported
+    return false;
+}
+
+
+$(document).ready(function()
+{ 
+	try
+    {
+      silverlight = GetSilverlightVersion();
+    }
+    catch(err)
+    {
+    	silverlight = "None";
+    }
+    $.post( "{% url 'clients:app:env_update' hit.id %}", {
+    	csrfmiddlewaretoken: '{{ csrf_token }}',
+    	window_height : window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
+    	window_width : window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+    	screen_height : window.screen.height,
+    	screen_width : window.screen.width,
+
+    	color_depth : window.screen.colorDepth,
+
+    	flash : getFlashVersion(),
+    	java_enabled : navigator.javaEnabled(),
+    	silverlight : silverlight,
+    	
+    	html5_canvas : isCanvasSupported(),
+    	html5_video : !!document.createElement('video').canPlayType,
+    	html5_audio : !!document.createElement('audio').canPlayType,
+    	html5_storage : supports_html5_storage(),
+    	
+    	svg : document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1"),
+    	webgl : webgl_detect()
+    });
+    
+function tracking() {
+	setTimeout(function() {
+        $.post( "{% url 'clients:app:hit_update' hit.id %}", {
+        	csrfmiddlewaretoken: '{{ csrf_token }}',
+        }).success(function(){
+            tracking();
+        }).error(function(){
+            tracking();
+        });
+    }, 1000);
+}
+tracking();    
+});
+</script>
+{% endif %}
+
+<style type="text/css">
+.border{
+	background-image: url('{{ MEDIA_URL }}{{app.pattern}}');
+}
+</style>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/render.css' %}">
+<style type="text/css">
+#background {
+	width: {{app.width}}px;
+	height: {{app.height}}px;
+}
+</style>
+<div class="border">	
+<div id="background" {% if background %}style="background-image:url({{ MEDIA_URL }}{{ background.image }}){% endif %} " class="object background">	
+    {% if campaign.membership.button_tool %}
+    {% for image_link in image_links %}
+        <div id="image_link_{{image_link.id}}" class="drag_image_link object tool image-link" style="top:{{ image_link.top }}px; left:{{ image_link.left }}px; position:absolute;" >
+        	<input id="image_link_type_{{image_link.id}}" class="hidden type" type="hidden" name="type" value="{{image_link.type}}">
+        	<input id="image_link_external_{{image_link.id}}" class="hidden image_link_external" type="hidden" name="external" value="{{image_link.link}}">
+        	<input id="image_link_internal_{{image_link.id}}" class="hidden image_link_internal" type="hidden" name="internal" value="{{image_link.internal_page.id}}">
+        	{% if image_link.type == 'external'  %}
+            	<a target="_top" href="{{image_link.link}}"><img src="{{ MEDIA_URL }}{{image_link.image}}"></a>
+        	{% elif image_link.type == 'internal'  %}
+            	<a href="{% url 'clients:app:app_show' app.id source image_link.internal_page.id %}"><img src="{{ MEDIA_URL }}{{image_link.image}}"></a>
+        	{% else %}
+            	<a href="#" {% if external  %} onclick="send({{image_link.internal_page.id}})" {% endif %}><img src="{{ MEDIA_URL }}{{image_link.image}}" border="0"></a>
+        	{% endif %}
+        </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if campaign.membership.youtube_tool %}
+    {% for video in youtube %}
+        {% if external  %}
+        <div id="youtube_{{video.id}}" class="drag_youtube object tool youtube" style="top:{{ video.top }}px; left:{{ video.left }}px; position:absolute;" >
+             <iframe width="400" height="225" src="//www.youtube.com/embed/{{video.video}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        {% else %}
+        <div id="youtube_{{video.id}}" class="drag_youtube object tool youtube" style="top:{{ video.top }}px; left:{{ video.left }}px; position:absolute;" >
+        	<input class="hidden" type="hidden" name="video" value="{{video.video}}">
+            <object width="400" height="225"><param name="movie" value="https://www.youtube.com/v/{{video.video}}?version=3&amp;hl=es_ES&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="wmode" value="transparent" /><param name="allowscriptaccess" value="always"></param><embed src="https://www.youtube.com/v/{{video.video}}?version=3&amp;hl=es_ES&amp;rel=0" type="application/x-shockwave-flash" width="400" height="225" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% endif %}
+    
+    {% if inputs and campaign.membership.form_tool %}
+        <form id="register" action="{% url 'clients:app:save' app.id source %}" method="post">
+        {% csrf_token %}
+        {% for input in inputs %}
+            <style>
+                #input_{{input.id}} {
+                	color: {{input.error_color}};
+                	font-size: 11px;
+                }
+            </style>
+            <div id="input_{{input.id}}" class="drag_input object tool input" style="top:{{ input.top }}px; left:{{ input.left }}px; width:{{ input.width }}px; position:absolute;" >
+            	<input id="{{input.type}}" title="{{input.default}}" class="input {% if input.transparent %} transparent {% endif %} main" type="text" name="{{input.type}}" value="{{input.default}}"  style="width:{{ input.width }}px; font-size:{{ input.size }}px; color:{{ input.default_color }};{% if input.transparent %} border:none; background-color:transparent; {% endif %}">
+        	    <input class="hidden type" type="hidden" name="type" value="{{input.type}}">
+        	    <input class="hidden color" type="hidden" name="color" value="{{input.color}}">
+        	    <input class="hidden default_color" type="hidden" name="default_color" value="{{input.default_color}}">
+        	    <input class="hidden error_color" type="hidden" name="error_color" value="{{input.error_color}}">
+        	    
+        	    <input class="hidden custom_name" type="hidden" name="custom_name" value="{{input.custom_name}}">
+        	    <input class="hidden custom_type" type="hidden" name="custom_type" value="{% if input.restriction.type %}{{input.restriction.type}}{% else %}text{% endif %}">
+        	    <input class="hidden min_characters" type="hidden" name="min_characters" value="{{input.restriction.min_characters}}">
+        	    <input class="hidden max_characters" type="hidden" name="max_characters" value="{{input.restriction.max_characters}}">
+        	    <input class="hidden required" type="hidden" name="required" value="{{input.restriction.required}}">
+            </div>
+        {% endfor %}
+        <input type="submit" value="Submit" style="display: none">
+        </form>
+    {% endif %}
+    
+    {% if not campaign.membership.white_mark %}
+    <div id="poweredby"><a href="https://spreadlabs.com" target="_blank"><img border="0" src="{{ STATIC_URL }}images/v1/poweredby.jpg"></a></div>
+    {% endif %}
+</div>
+<div class="clear"></div>
+</div>
+</body>
+</html>

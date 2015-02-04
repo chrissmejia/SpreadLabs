@@ -1,0 +1,232 @@
+{% extends "basev1.html" %}
+
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+
+{% load admin_static %}
+{% load nvd3_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block breadcrumbs %}
+	<li><a href="{% url 'dashboard:index' %}" title="Dashboard">Dashboard</a></li>
+	<li><a href="{% url 'dashboard:details' campaign.id %}" title="Apps">{{ campaign.name }}</a></li>
+	<li><a href="{% url 'apps:campaign' campaign.id %}" title="Apps">Aplicaciones</a></li>
+{% endblock %}
+{% block extrahead %}
+    {% include_chart_jscss %}
+    {% load_chart "pieChart" chartdata_apps "piechart_apps" extra %}
+<script>
+$(function() {
+	//load main graph
+	$("#main_chart").load("{% url 'apps:extended:main_campaign' campaign.id %}");
+
+	$("#visits").load("{% url 'dashboard:extended:visits_campaign_count' campaign.id %}");
+});
+</script>    
+{% endblock %}
+{% block content %}
+
+<div id="main_chart" class="loading">
+	<img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
+</div>
+<div id="global_data_div">
+    <div id="views" class="submenu_item"><div class="number_submenu">{{ views_count }}</div><div class="text_submenu">Vista{{ views_count|pluralize }}</div></div>
+    <div id="visits" class="submenu_item"><div class="number_submenu"><img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading2.gif"></div><div class="text_submenu">Visitas</div></div>
+    <div id="visitors" class="submenu_item"><div class="number_submenu">{{ visitors_count }}</div><div class="text_submenu">Visitante{{ visitors_count|pluralize }}</div></div>
+    <div id="records" class="submenu_item"><div class="number_submenu">{{ records_count }}</div><div class="text_submenu">Registro{{ records_count|pluralize }}</div></div>
+</div> 
+
+<div class="two_blocks">
+    <h1>Interación</h1>
+    {% include_container "piechart_apps" 300 '100%'%}
+</div>
+<div class="two_blocks">
+    <h1>Aplicación de dominio</h1>
+    {% if campaign.membership.own_domain %}
+        {% if domain.domain %}
+            {% if domain.app %}
+            <h2>{{ domain.domain }}</h2>
+            </br></br>
+                <div id="domain">
+				<ul class="ch-grid-apps">
+					<li>
+						<div class="ch-item" style="background-image: url('{{ MEDIA_URL }}{{ domain.app.picture }}'); background-size:158px 100px;">				
+							<div class="ch-info-wrap">
+								<div class="ch-info">
+									<div class="ch-info-front" style="background-image: url('{{ MEDIA_URL }}{{ domain.app.picture }}'); background-size:158px 100px;"></div>
+									<div class="ch-info-back">
+                                            <ul class="mini-menu">
+                                                <li><a href="{% url 'apps:app_edit' app_id=domain.app.id %}" title="Editar">Editar</a></li>
+                                                <li class="view"><a href="{% url 'stats:app' app_id=domain.app.id %}">Ver</a></li>
+                                                <li><a href="{% url 'apps:bump' app_id=domain.app.id %}" title="Eliminar de dominio">Eliminar de dominio</a></li>
+                                            </ul> 
+										<img src="{{ MEDIA_URL }}{{ domain.app.picture }}" width="158" height="100">
+									</div>	
+								</div>
+							</div>
+						</div>
+						<div class="name">{{ domain.app.name }}</div>
+					</li>
+				    </ul>
+ 				</div>
+            {% else %}
+                </br></br>
+                <div class="gray" align="center">Promueve un web app como aplicación de dominio para utilizar esta funcionalidad</div>
+            {% endif %}
+        {% else %}
+            </br></br>
+            <div class="gray" align="center">No cuenta con dominio asociado, por favor contacte a soporte@spreadlabs.com</div>
+        {% endif %}
+    {% else %}
+        </br></br>
+        <div class="gray" align="center">Su membresía no permite esta funcionalidad, por favor contacte a ventas@spreadlabs.com</div>
+    {% endif %}
+</div>
+<div class="clear"></div>
+
+
+<div class="zebra">
+    <h1>Aplicaci{{ active_apps|length|pluralize:"ón,ones" }} activa{{ active_apps|length|pluralize }}</h1>
+				<ul class="ch-grid-apps">
+        {% for active_app in active_apps %}
+            {% if not domain.app == active_app %}
+					<li>
+						<div class="ch-item" style="background-image: url('{{ MEDIA_URL }}{{ active_app.picture }}'); background-size:158px 100px;">				
+							<div class="ch-info-wrap">
+								<div class="ch-info">
+									<div class="ch-info-front" style="background-image: url('{{ MEDIA_URL }}{{ active_app.picture }}'); background-size:158px 100px;"></div>
+									<div class="ch-info-back">
+										{% if campaign.membership.own_domain and domain.domain %}
+                                            <ul class="mini-menu">
+                                                <li><a href="{% url 'apps:promote' app_id=active_app.id %}" title="Promover a dominio">Promover a dominio</a></li>
+                                                <li class="view"><a style="float: left" href="{% url 'stats:app' app_id=active_app.id %}">Ver</a><div style="float: left">&nbsp;/&nbsp;</div><a style="float: left" href="{% url 'apps:app_edit' app_id=active_app.id %}" title="Editar">Editar</a></li>
+                                                <li><a href="{% url 'apps:deactivate' app_id=active_app.id %}" title="Delete">Desactivar</a></li>
+                                            </ul> 
+                                        {% else %}
+                                            <ul class="mini-menu">
+                                                <li><a href="{% url 'apps:app_edit' app_id=active_app.id %}" title="Editar">Editar</a></li>
+                                                <li class="view"><a href="{% url 'stats:app' app_id=active_app.id %}">Ver</a></li>
+                                                <li><a href="{% url 'apps:deactivate' app_id=active_app.id %}" title="Delete">Desactivar</a></li>
+                                            </ul> 
+                                        {% endif %}
+										<img src="{{ MEDIA_URL }}{{ active_app.picture }}" width="158" height="100">
+									</div>	
+								</div>
+							</div>
+						</div>
+						<div class="name">{{ active_app.name }}</div>
+					</li>
+    	    {% endif %}
+        {% endfor %}
+        {% if active_apps|length < campaign.membership.max_apps %}
+	        <li>
+			    <div class="ch-item" style="background-image: url('{{ STATIC_URL }}images/v1/new_app.jpg'); background-size:158px 100px;">				
+							<div class="ch-info-wrap">
+								<div class="ch-info">
+									<div class="ch-info-front" style="background-image: url('{{ STATIC_URL }}images/v1/new_app.jpg'); background-size:158px 100px;"></div>
+									<div class="ch-info-back">
+                                    <a href="{% url 'apps:app_create' campaign.id %}">
+										<img class="circle" src="{{ STATIC_URL }}images/v1/new_app.jpg" width="158" height="100">
+										<div class="views">Ir</div>
+										<p>al editor</p>
+									</a>
+									</div>	
+								</div>
+							</div>
+				</div>
+				<div class="name">Nueva aplicación</div>
+		    
+		    </li>
+	    {% endif %}
+	</ul>
+    <div class="gray" align="center"><small>({{ active_apps|length }} aplicaci{{ active_apps|length|pluralize:"ón,ones" }} activa{{ active_apps|length|pluralize }} de {{campaign.membership.max_apps}} permitida{{ campaign.membership.max_apps|pluralize }})</small></div>
+    </br>
+</div>
+<div class="clear"></div>
+
+{% if inactive_apps %}
+<div class="zebra">
+    <h1>Aplicaci{{ inactive_apps|length|pluralize:"ón,ones" }} inactiva{{ inactive_apps|length|pluralize }}</h1>
+	<ul class="ch-grid-apps">
+        {% for inactive_app in inactive_apps %}
+					<li>
+						<div class="ch-item" style="background-image: url('{{ MEDIA_URL }}{{ inactive_app.picture }}'); background-size:158px 100px;">				
+							<div class="ch-info-wrap">
+								<div class="ch-info">
+									<div class="ch-info-front" style="background-image: url('{{ MEDIA_URL }}{{ inactive_app.picture }}'); background-size:158px 100px;"></div>
+									<div class="ch-info-back">
+                                            <ul class="mini-menu">
+                                                <li><a href="{% url 'apps:app_edit' app_id=inactive_app.id %}" title="Editar">Editar</a></li>
+                                                <li class="view"><a href="{% url 'stats:app' app_id=inactive_app.id %}" title="Ver">Ver</a></li>
+                                                <li><a href="{% url 'apps:reactivate' app_id=inactive_app.id %}" title="Reactivar">Reactivar</a></li>
+                                            </ul> 
+										<img src="{{ MEDIA_URL }}{{ inactive_app.picture }}" width="158" height="100">
+									</div>	
+								</div>
+							</div>
+						</div>
+						<div class="name">{{ inactive_app.name }}</div>
+					</li>
+        {% endfor %}
+	</ul>
+    </br>
+</div>
+<div class="clear"></div>
+{% endif %}
+
+<div {% if inactive_apps %} class="zebra" {% endif %}>
+    <h1>Últimos registros</h1>
+        <table class="footable table">
+        <thead>
+            <tr>
+		        <th data-hide="phone">Creación</th>
+    			<th data-hide="phone,tablet">Aplicación</th>
+	    		<th data-hide="phone,tablet">Fuente</th>
+		    	<th data-hide="phone,tablet">Cédula</th>
+			    <th>Nombre</th>
+    			<th>Correo</th>
+	    		<th>Celular</th>
+		    	<th data-hide="phone,tablet">Fecha de nacimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for record in records %}
+            <tr>
+				<td>{% if record.record.created %} {{ record.record.created|date:'d-m-Y H:i' }} {% endif %}</td>
+				<td>{% if record.app %} {{ record.app.name }} {% endif %}</td>
+				<td>{% if record.source.name %} {{ record.source.name }} {% endif %}</td>
+				<td>{% if record.record.identification %} {{ record.record.identification }} {% endif %}</td>
+				<td>{% if record.record.name %} {{ record.record.name }} {% endif %} 
+					{% if record.record.lastname %} {{ record.record.lastname }} {% endif %}</td>
+				<td>{% if record.record.email %} {{ record.record.email }} {% endif %}</td>
+				<td>{% if record.record.cellphone %} {{ record.record.cellphone }} {% endif %}</td>
+				<td>{% if record.record.day_of_birth %} {{ record.record.day_of_birth|stringformat:"02d" }} {% endif %}
+					{% if record.record.birth_month %} -{{ record.record.birth_month|stringformat:"02d" }} {% endif %}
+					{% if record.record.year_of_birth %} -{{ record.record.year_of_birth|stringformat:"04d" }} {% endif %}
+				</td>
+			</tr>
+         {% endfor %}
+        </tbody>
+    </table>
+    </br>
+    <div class="go"><a href="{% url 'records:details' campaign_id=campaign.id  %}" title="Ir a registros {{ campaign.name }}">Ir a registros {{ campaign.name }}</a></div>
+    </br></br>
+</div>
+<div class="clear"></div>
+{% endblock %}

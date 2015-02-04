@@ -1,0 +1,151 @@
+{% extends "basev1.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+{% block content %}
+	<section id="login-block">
+		<div class="block-border"><div class="block-content">
+			
+			<!--
+			IE7 compatibility: if you want to remove the <h1>, 
+			add style="zoom:1" to the above .block-content div
+			-->
+			<h1>SpreadLabs</h1>
+			<div class="block-header">Iniciar sesión</div>
+				{% if form.errors %}<p class="message error no-margin">Datos inválidos, intente de nuevo</p>{% endif %}
+			
+                <form class="form with-margin" name="login-form" id="login-form" method="post" action="">
+                {% csrf_token %}
+
+                        {% if form.username.errors %}<div class="error inline-small-label">{{ form.username.errors }}</div>{% endif %}
+                    <p class="inline-small-label">
+                        <label for="username"{% if form.username.errors %} class="error"{% endif %}><span class="big">Usuario:</span></label>
+                        {{ form.username }}
+                    </p>
+                    
+                        {% if form.password.errors %}<div class="error">{{ form.password.errors }}</div>{% endif %}
+                    <p class="inline-small-label">
+                        <label for="password"{% if form.password.errors %} class="error"{% endif %}><span class="big">Contraseña:</span></label>
+                        {{ form.password }}
+                    </p>
+                    <button type="submit" class="float-right">Ingresar</button>
+                 </form>
+
+			<form class="form" id="password-recovery" method="post" action="{% url 'accounts:new_password' %}">
+				{% csrf_token %}
+				<fieldset class="grey-bg no-margin collapse">
+					<legend><a href="#">¿Perdiste tu contraseña?</a></legend>
+					<p class="input-with-button">
+						<label for="id_email">Introduzca su correo electrónico</label>
+						<input type="text" name="email" id="id_email" value="">
+						<button type="submit" >Enviar</button>
+					</p>
+				</fieldset>
+			</form>
+		</div></div>
+	</section>
+	
+	<script>
+	
+		$(document).ready(function()
+		{
+			// We'll catch form submission to do it in AJAX, but this works also with JS disabled
+			$('#login-form').submit(function(event)
+			{
+				// Check fields
+				var login = $('#id_username').val();
+				var pass = $('#id_password').val();
+				
+				if (!login || login.length == 0)
+				{
+                                        // Stop full page load
+                                        event.preventDefault();
+
+                                        $('#login-block').removeBlockMessages().blockMessage('Por favor ingrese un usuario', {type: 'warning'});
+				}
+				else if (!pass || pass.length == 0)
+				{
+                                        // Stop full page load
+                                        event.preventDefault();
+
+					$('#login-block').removeBlockMessages().blockMessage('Por favor ingrese una contraseña', {type: 'warning'});
+				}
+				else
+				{
+					var submitBt = $(this).find('button[type=submit]');
+					submitBt.disableBt();
+//					
+//					// Target url
+//					var target = $(this).attr('action');
+//					if (!target || target == '')
+//					{
+//						// Page url without hash
+//						target = document.location.href.match(/^([^#]+)/)[1];
+//					}
+//					
+//					// Request
+//					var data = {
+//							a: $('#a').val(),
+//							login: login,
+//							pass: pass,
+//							'keep-logged': $('#keep-logged').attr('checked') ? 1 : 0
+//						},
+//						redirect = $('#redirect'),
+//						sendTimer = new Date().getTime();
+//					
+//					if (redirect.length > 0)
+//					{
+//						data.redirect = redirect.val();
+//					}
+//					
+//					// Send
+//					$.ajax({
+//						url: target,
+//						dataType: 'json',
+//						type: 'POST',
+//						data: data,
+//						success: function(data, textStatus, XMLHttpRequest)
+//						{
+//							if (data.valid)
+//							{
+//								// Small timer to allow the 'cheking login' message to show when server is too fast
+//								var receiveTimer = new Date().getTime();
+//								if (receiveTimer-sendTimer < 500)
+//								{
+//									setTimeout(function()
+//									{
+//										document.location.href = data.redirect;
+//										
+//									}, 500-(receiveTimer-sendTimer));
+//								}
+//								else
+//								{
+//									document.location.href = data.redirect;
+//								}
+//							}
+//							else
+//							{
+//								// Message
+//								$('#login-block').removeBlockMessages().blockMessage(data.error || 'An unexpected error occured, please try again', {type: 'error'});
+//								
+//								submitBt.enableBt();
+//							}
+//						},
+//						error: function(XMLHttpRequest, textStatus, errorThrown)
+//						{
+//							// Message
+//							$('#login-block').removeBlockMessages().blockMessage('Error mientras se conectaba con el servidor, por favor intente de nuevo', {type: 'error'});
+//							
+//							submitBt.enableBt();
+//						}
+//					});
+//					
+//					// Message
+//					$('#login-block').removeBlockMessages().blockMessage('Por favor espere, corroborando datos...', {type: 'loading'});
+				}
+			});
+		});
+	
+	</script>	
+{% endblock %}

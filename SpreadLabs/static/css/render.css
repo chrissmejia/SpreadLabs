@@ -1,0 +1,46 @@
+body{
+	margin: 0px;
+}
+
+#background {
+	width: 810px;
+	height: 800px;
+	margin: 0 auto;
+	overflow: hidden !important;
+	position: relative;
+}
+
+.tool {
+	position: absolute;
+	display: block;
+	top: 120px;
+}
+
+#poweredby{
+	background-color: #fff;
+    border-top-style: dotted;
+    border-top-width: 1px;
+    border-color: #C0C0C0;
+    padding: 3px;
+
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+
+#poweredby img{
+	margin: 0 auto;
+    display: block;
+}
+
+.image-link {
+	opacity:0.6;
+    filter:alpha(opacity=60); /* For IE8 and earlier */
+}
+
+.image-link:hover {
+	opacity:1;
+    filter:alpha(opacity=100); /* For IE8 and earlier */
+}

@@ -1,0 +1,112 @@
+{% extends "basev1.html" %}
+
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+
+{% load admin_static %}
+{% load nvd3_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block breadcrumbs %}
+	<li><a href="{% url 'dashboard:index' %}" title="Dashboard">Dashboard</a></li>
+	<li><a href="{% url 'stats:index' %}" title="Estadísticas">Estadísticas</a></li>
+	<li><a href="{% url 'stats:campaign' campaign.id %}" title="{{ campaign.name }}">{{ campaign.name }}</a></li>
+	<li><a href="{% url 'stats:app' app.id %}" title="{{ app.name }}">{{ app.name }}</a></li>
+	<li><a href="{% url 'stats:app_system' app.id %}" title="Sistema">Sistema</a></li>
+{% endblock %}
+{% block extrahead %}
+    {% include_chart_jscss %}
+    {% load_chart "pieChart" chartdata_touch "piechart_chartdata_touch" extra %}
+    {% load_chart "pieChart" chartdata_resolution "piechart_chartdata_resolution" extra %}
+    {% load_chart "pieChart" chartdata_flash "piechart_chartdata_flash" extra %}
+    {% load_chart "pieChart" chartdata_color "piechart_chartdata_color" extra %}
+    {% load_chart "pieChart" chartdata_java "piechart_chartdata_java" extra %}
+    {% load_chart "pieChart" chartdata_silverlight "piechart_chartdata_silverlight" extra %}
+<script>
+$(function() {
+	//load main graph
+	$("#main_chart").load("{% url 'stats:extended:main_app_system' app.id %}");
+
+    $('.ch-info .views').each(function(index, element) {
+    	child = $(element).find('div');
+        child.css('font-size', '1em');
+        while( child.height() > $(element).height() ) {
+            child.css('font-size', (parseInt(child.css('font-size')) - 1) + "px" );
+        }
+    });
+    
+    // Fix miss clicks
+    $('.campaing_a').mousedown(function(e) {
+    	window.location.href = $(this).attr('href');
+    });
+});
+</script>    
+    
+{% endblock %}
+{% block content %}
+
+<div id="main_extra_head">
+    <div id="main_chart" class="loading">
+	    <img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
+    </div>
+    <div class="menu" id="sub_menu">
+        {% include "stats/menus/app.html" %}
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="global_data_div">
+	{% for k, v in sorted_resolutions.items %}
+	<div class="submenu_item_five"><div class="number_submenu">{{ v }}</div><div class="text_submenu">{% if k == "NonexNone" %}Desconocida{% else %}{{ k }}{% endif %}</div></div>
+    {% endfor %}
+</div> 
+
+<div class="zebra">
+    <div class="three_blocks">
+        <h1>Pantalla táctil</h1>
+        {% include_container "piechart_chartdata_touch" 300 '100%'%}
+        </br></br>
+    </div>
+    <div class="three_blocks">
+        <h1>Resolución de pantalla</h1>
+        {% include_container "piechart_chartdata_resolution" 300 '100%'%}
+    </div>
+    <div class="three_blocks">
+        <h1>Soporte flash</h1>
+        {% include_container "piechart_chartdata_flash" 300 '100%' %}
+    </div>
+    </br></br>
+    <div class="clear"></div>
+</div> 
+
+<div>
+    <div class="three_blocks">
+        <h1>Soporte Java</h1>
+        {% include_container "piechart_chartdata_java" 300 '100%' %}
+    </div>
+    <div class="three_blocks">
+        <h1>Soporte Silverlight</h1>
+        {% include_container "piechart_chartdata_silverlight" 300 '100%' %}
+    </div>
+    <div class="three_blocks">
+        <h1>Profundidad de color</h1>
+        {% include_container "piechart_chartdata_color" 300 '100%' %}
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

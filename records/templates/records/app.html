@@ -1,0 +1,127 @@
+{% extends "basev1.html" %}
+
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+
+{% load admin_static %}
+{% load nvd3_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block breadcrumbs %}
+	<li><a href="{% url 'dashboard:index' %}" title="Dashboard">Dashboard</a></li>
+	<li><a href="{% url 'records:index' %}" title="Registros">Registros</a></li>
+	<li><a href="{% url 'records:details' campaign.id %}" title="Campaña">{{ campaign.name }}</a></li>
+	<li><a href="{% url 'records:app' app.id %}" title="Aplicación">{{ app.name }}</a></li>
+{% endblock %}
+{% block extrahead %}
+    {% include_chart_jscss %}
+    {% load_chart "discreteBarChart" chartdata_type "discreteBarChart_chartdata_type" extra_discrete %}
+
+    <script src="{% static "js/v1/table/footable.js" %}"></script>    
+    <script src="{% static "js/v1/table/footable.paginate.js" %}"></script> 
+    <script src="{% static "js/v1/table/footable.filter.js" %}"></script> 
+    
+<script>
+$(function() {
+	//load main graph
+	$("#main_chart").load("{% url 'records:extended:main_app' app.id %}");
+
+    // Fix miss clicks
+    $('.campaing_a').mousedown(function(e) {
+    	window.location.href = $(this).attr('href');
+    });
+    
+    $('.footable').footable({
+    	
+    });
+    
+});
+
+</script>    
+    
+{% endblock %}
+{% block content %}
+
+<div id="main_chart" class="loading">
+	<img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
+</div>
+<div id="global_data_div">
+    <div id="records" class="submenu_item"><div class="number_submenu">{{ records_count }}</div><div class="text_submenu">Registro{{ records_count|pluralize }}</div></div>
+</div> 
+
+<div>
+    <h1>Datos recolectados</h1>
+    {% include_container "discreteBarChart_chartdata_type" 300 '100%'%}
+    <div class="gray" align="center"><small>(*) De nacimiento</small></div>
+    </br>
+</div>
+
+
+<div class="zebra">
+    <h1>Registros</h1>
+        <table class="footable table" data-page-navigation=".pagination" data-filter=#filter>
+        <thead>
+            <tr>
+		        <th data-hide="phone">Creación</th>
+	    		<th data-hide="phone,tablet">Fuente</th>
+		    	<th data-hide="phone,tablet">Cédula</th>
+			    <th>Nombre</th>
+    			<th>Correo</th>
+	    		<th>Celular</th>
+		    	<th data-hide="phone,tablet">Fecha de nacimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for record in records %}
+            <tr>
+				<td>{% if record.record.created %} {{ record.record.created|date:'d-m-Y H:i' }} {% endif %}</td>
+				<td>{% if record.source.name %} {{ record.source.name }} {% endif %}</td>
+				<td>{% if record.record.identification %} {{ record.record.identification }} {% endif %}</td>
+				<td>{% if record.record.name %} {{ record.record.name }} {% endif %} 
+					{% if record.record.lastname %} {{ record.record.lastname }} {% endif %}</td>
+				<td>{% if record.record.email %} {{ record.record.email }} {% endif %}</td>
+				<td>{% if record.record.cellphone %} {{ record.record.cellphone }} {% endif %}</td>
+				<td>{% if record.record.day_of_birth %} {{ record.record.day_of_birth|stringformat:"02d" }} {% endif %}
+					{% if record.record.birth_month %} -{{ record.record.birth_month|stringformat:"02d" }} {% endif %}
+					{% if record.record.year_of_birth %} -{{ record.record.year_of_birth|stringformat:"04d" }} {% endif %}
+				</td>
+			</tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+						<tr>
+							<td colspan="2">
+								Filtrar: <input type="text" name="filter" id="filter">
+							</td>
+							<td colspan="2"></td>
+							<td colspan="1">
+								<a class="download" href="{% url 'records:export_app' app.id %}">
+									Descargar
+								</a>
+							</td>
+							<td colspan="2">
+								<div class="pagination pagination-right"></div>
+							</td>
+						</tr>
+		</tfoot>
+    </table>
+    </br></br>
+</div>
+<div class="clear"></div>                                    
+{% endblock %}
