@@ -1,0 +1,1 @@
+Please copy your local settings here from SpreadLabs.settings as local.settings, this settings are ignored at every commit to protect your privacy.
