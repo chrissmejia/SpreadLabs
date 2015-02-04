@@ -225,12 +225,13 @@ svg text, .nvtooltip {
     -o-transition: all 0.5s;
 }
 
-#main.full, .unlogged #main {
-    margin: 0 0 8rem 0;
+#main.full {
+    margin: 0;
 }
 
 .unlogged #main {
 	background-color: #fff;
+    margin: 0 0 8rem 0;
 }
 
 /*//////////////////////////////////// Breadcrumb ///////////////////////////////////////*/
