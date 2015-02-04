@@ -1,9 +1,10 @@
 *.pyc
 env/
 .idea/
-SpreadLabs/media/backgrounds/
-SpreadLabs/media/icos/
-SpreadLabs/media/pattern/
-SpreadLabs/media/image_links/
+SpreadLabs/media/backgrounds/*.jpg
+SpreadLabs/media/icos/*.jpg
+SpreadLabs/media/pattern/*.jpg
+SpreadLabs/media/image_links/*.jpg
+SpreadLabs/media/image_links/*.png
 SpreadLabs/static/CACHE/
 local/settings.py
