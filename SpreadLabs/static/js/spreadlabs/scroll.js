@@ -35,32 +35,18 @@ $( document ).ready(function() {
         }
     };
 
-    $(window).scroll(function(){
+    $(window).scroll(function() {
         var aTop = $('#head').height();
 
         if($(this).scrollTop()>aTop){
-            	if($("#main").css("margin-left") == rem(5) + "px"){
-            		$("#breadcrumb").css({position: "fixed", top: "0px", "border-bottom-style":"solid", "z-index": "1000"});
-            		$("#breadcrumb #mini_logo").css({"z-index": "1"});
-                    $("#left_menu").css({"z-index": "-1"});
-                    $("#breadcrumb").animate({ backgroundColor: '#fff'}, 1000).dequeue();
-                    $("#main").animate({ marginLeft: '0px'}, 500, function function_name (arg) {
-                        $(window).trigger('resize');
-                    }).dequeue();
-                    $("#mini_logo").animate({ marginLeft:  "-" + rem(0.9375) + "px"}, 500).dequeue(); // 0.9375 column padding
-                }
-            } else {
-            	if($("#main").css("margin-left") == '0px'){
-            		$("#breadcrumb").css({position: "relative", top: "0px", "border-bottom-style":"none", "z-index": "auto"});
-                    $("#breadcrumb").animate({ backgroundColor: '#f3f3f3'}, 500).dequeue();
-                    $("#breadcrumb #mini_logo").animate({ marginLeft: "-" + rem(10) + "px"}, 400, function function_name (arg) {
-                		$("#breadcrumb #mini_logo").css({"z-index": "-1"});
-                        $("#breadcrumb #mini_logo").css({ marginLeft: "-" + rem(6) + "px"});
-                    }).dequeue();
-                    $("#main").animate({ marginLeft: '5rem'}, 400, function function_name (arg) {
-                        $("#left_menu").css({"z-index": "0"});
-                        $(window).trigger('resize');
-                    }).dequeue();
+            if($("#main").css("margin-left") == rem(5) + "px"){
+                $("#breadcrumb").addClass("sticky");
+                $("#main").addClass("full");
+            }
+        } else {
+            if($("#main").css("margin-left") == '0px'){
+                $("#breadcrumb").removeClass("sticky");
+                $("#main").removeClass("full");
                }
             }
             $(window).trigger('resize');

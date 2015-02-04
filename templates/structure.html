@@ -63,28 +63,28 @@
 	    {% if user.is_authenticated %}
         <div class="menu" id="left_menu">
         	<a href="{% url 'dashboard:index' %}">
-        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/dashboard.png" %}" width="30">
         		<div class="name">Dashboard</div>
         	</div>
         	</a>
 
         	<a href="{% url 'apps:index' %}">
-        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/apps.png" %}" width="30">
         		<div class="name">Apps</div>
         	</div>
         	</a>
 
         	<a href="{% url 'records:index' %}">
-        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/records.png" %}" width="30">
         		<div class="name">Registros</div>
         	</div>
         	</a>
 
         	<a href="{% url 'stats:index' %}">
-        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/stats.png" %}" width="30">
         		<div class="name">Estadísticas</div>
         	</div>

@@ -59,6 +59,10 @@ h3 {
 	border-radius: 50%;
 }
 
+.color_purple{
+	color: #7b4b74;
+}
+
 /* Chart Font Fix */
 svg text, .nvtooltip {
 	font-family: Nunito !important;
@@ -86,15 +90,20 @@ svg text, .nvtooltip {
     margin: 0.3rem 0rem;
     padding: 0.24rem 0.8rem;
     border-radius: 0.4rem;
+    position: relative;
     background-color: #ffffff;
+     -webkit-transition: background-color 200ms ease-out 0.1s;
+    -moz-transition: background-color 200ms ease-out 0.1s;
+    -o-transition: background-color 200ms ease-out 0.1s;
+    transition: background-color 200ms ease-out 0.1s;
 }
 
 #head #user_credential:hover{
     background-color: #f6f6f6;
-}
-
-#head #user_credential img{
-    float: left;
+     -webkit-transition: background-color 200ms ease-out 0.1s;
+    -moz-transition: background-color 200ms ease-out 0.1s;
+    -o-transition: background-color 200ms ease-out 0.1s;
+    transition: background-color 200ms ease-out 0.1s;
 }
 
 #head #user_credential #usermain:hover{
@@ -104,6 +113,7 @@ svg text, .nvtooltip {
 #head #user_credential div {
     width: 6.5rem;
     margin-left: 1rem;
+    left: 4rem;
 }
 
 #head #user_credential div, #head #user_credential a {
@@ -116,34 +126,49 @@ svg text, .nvtooltip {
 
 #head #user_credential .primary {
 	font-size: 0.9rem;
+    position: absolute;
+    top: 0.7rem;
 }
 
 #head #user_credential .secondary {
 	font-size: 0.7rem;
+    position: absolute;
+    top: 1.8rem;
 }
-
-#head #user_credential #close, #head #user_credential #password {
-    display: none;
-}
-
-#head #user_credential:hover #close, #head #user_credential:hover #password {
-    display: inline-block;
-}
-
 
 #head #user_credential #name, #head #user_credential #agency {
-    display: inline-block;
+    opacity: 100;
+    visibility: visible;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
 }
 
 #head #user_credential:hover #name, #head #user_credential:hover #agency {
-    display: none;
+    opacity: 0;
+    visibility:hidden;
+}
+
+#head #user_credential #close, #head #user_credential #password {
+    opacity: 0;
+    visibility:hidden;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+}
+
+#head #user_credential:hover #close, #head #user_credential:hover #password {
+    opacity: 100;
+    visibility: visible;
 }
 
 /*/////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////// Right Menu /////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////*/
 
-#left_menu{
+#left_menu {
 	width: 5rem;
 	background-color: #3fa9e0;
 	float: left;
@@ -155,18 +180,24 @@ svg text, .nvtooltip {
 	color: #0d6c9e;
 }
 
-.color_purple{
-	color: #7b4b74;
-}
-
 #sub_menu a:nth-of-type(1) .item{
 	margin-top: 2rem;
 }
+
 .menu .item{
 	margin: 0.3rem;
 	padding: 0.3rem;
 	text-align: center;
 	border-radius: 0.5rem;
+    background-color: #3fa9e0;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+}
+
+.menu .item:hover {
+    background-color: #5db7e6;
 }
 
 .menu .item img{
@@ -188,10 +219,17 @@ svg text, .nvtooltip {
 	border-top-style: solid;
 	border-top-width: 0.1rem;
 	border-top-color: #c180b7;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+#main.full, .unlogged #main {
+    margin: 0 0 8rem 0;
 }
 
 .unlogged #main {
-    margin: 0 0 8rem 0;
 	background-color: #fff;
 }
 
@@ -207,14 +245,32 @@ svg text, .nvtooltip {
 	border-bottom-color: #c180b7;
 }
 
+#main #breadcrumb.sticky {
+    position: fixed;
+    top: 0rem;
+    border-bottom-style: solid;
+    z-index: 1000
+}
+
 #main #breadcrumb #breadcrumb_path #mini_logo {
 	background-color: #3fa9e0;
     float: left;
 	line-height: 1rem;
-	margin-right: 2rem;
-    margin-left: -6rem;
-    z-index: -2;
+	margin-right: 2.6rem;
+    margin-left: -0.9375rem;
     position: relative;
+    width: 0rem;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+#main #breadcrumb.sticky #breadcrumb_path #mini_logo {
+    width: 4.4rem;
+}
+
+#main #breadcrumb #breadcrumb_path #mini_logo.sticky {
 }
 
 #main #breadcrumb #breadcrumb_path #mini_logo img {
@@ -260,27 +316,4 @@ svg text, .nvtooltip {
     font-size: 0.8rem;
     color: #a5acb4;
     margin: -0.5rem;
-}
-
-
-
-
-
-#main_chart{
-	background-color: #ffffff;
-}
-
-#main_extra_head {
-	position: relative;
-	margin-right: 70px;
-}
-
-#main_extra_head #sub_menu{
-	position: absolute;
-	height: 300px;
-	width: 70px;
-	right: -70px;
-	top: 0px;
-
-	background-color: #c180b7
 }
