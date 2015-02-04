@@ -20,263 +20,12 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
 
-
-@import url(http://fonts.googleapis.com/css?family=Nunito:300);
-
-*{
-	margin: 0px;
-	padding: 0px;
-}
-
-html {
-	height: 100%;
-}
-
-h1 {
-	font-weight: normal;
-	font-size: 20px;
-	color: #6c757e;
-	padding: 30px;
-}
-
-h2 {
-	font-weight: normal;
-	font-size: 18px;
-	color: #6c757e;
-	padding: 10px 40px;
-}
-
-h3 {
-	font-weight: normal;
-	font-size: 16px
-}
-
-body{
-	background-color: #3fa9e0;
-	font-family: Nunito;
-}
-
-body.unlogged {
-    background-color: #fff;
-}
-
-a{
-    text-decoration:none;
-}
-
-.clear {clear:both;}
-
-.circle {
-	border-radius: 50%;
+.clear {
+    clear: both;
 }
 
 .hidden {
-	display: none;
-}
-/* Chart Font Fix */
-svg text, .nvtooltip {
-	font-family: Nunito !important;
-    font-weight: lighter !important;
-}
-
-#head {
-	background-color: #ffffff;
-	height: 70px;
-	width: 100%;
-}
-
-#head #logo {
-	margin: 15px 10px;
-	display: inline-block;
-}
-
-#head #user_credential{
-	min-width: 180px;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    margin: 5px 30px;
-}
-
-#head #user_credential #usermain{
-    padding: 5px 10px;
-    border-radius: 5px;
-    width: 100%;
-}
-
-#head #user_credential #usermain:hover{
-	background-color: #f7f7f7;
-}
-
-#head #user_credential img{
-	float: left;
-}
-
-#head #user_credential #name, #head #user_credential #close {
-    position: absolute;
-    left: 80px;
-    top: 10px;
-	color: #a5acb4;
-	font-size: 14px;
-}
-
-#head #user_credential #agency, #head #user_credential #password {
-    position: absolute;
-    left: 80px;
-    top: 30px;
-	color: #a5acb4;
-	font-size: 10px;
-}
-
-#head #user_credential #close a, #head #user_credential #password a{
-	color: #a5acb4;
-}
-
-#head #user_credential #close a:hover, #head #user_credential #password a:hover{
-	color: #6c757e;
-}
-
-#head #user_credential #close, #head #user_credential #password {
     display: none;
-}
-
-#head #user_credential > li > ul {
-  opacity: 0;
-  visibility: hidden;
-  padding: 16px 0 20px 0;
-  background-color: #fafafa;
-  text-align: left;
-  position: absolute;
-  top: 55px;
-  left: 50%;
-  margin-left: -90px;
-  width: 180px;
-  -webkit-transition: all .3s .1s;
-  -moz-transition: all .3s .1s;
-  -o-transition: all .3s .1s;
-  transition: all .3s .1s;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
-}
-
-#head #user_credential li{
-	float: left;
-	list-style-type: none; 
-}
-
-#right_menu{
-	width: 70px;
-	background-color: #3fa9e0;
-	float: left;
-	position: absolute;
-	z-index: 0;
-}
-
-#right_menu .item{
-	color: #0d6c9e;
-}
-
-.color_purple{
-	color: #7b4b74;
-}
-
-#sub_menu a:nth-of-type(1) .item{
-	margin-top: 20px;
-}
-.menu .item{
-	margin: 5px;
-	padding: 5px;
-	text-align: center;
-	border-radius: 5px;
-}
-
-.menu .item img{
-}
-
-.item .name{
-	font-size: 10px;
-}
-
-#main {
-	margin-left: 70px;
-	background-color: #f3f3f3;
-	border-top-style:solid;
-	border-top-width:1px;
-	border-top-color: #c180b7;
-}
-
-.unlogged #main {
-    margin: 0 0 8rem 0;
-	background-color: #fff;
-}
-
-#main #breadcrumb_div {
-	height: 60px;
-	line-height: 60px;
-	width: 100%;
-	background-color: #f3f3f3;
-	position: relative;
-	border-bottom-width:1px;
-	border-bottom-color: #c180b7;
-}
-
-#main #breadcrumb_div #mini_logo {
-	background-color: #3fa9e0;
-	float: left;
-	line-height: 10px;
-	margin-right: 20px;
-    position: relative;
-    margin-left: -70px;
-    z-index: -2;
-}
-
-#main #breadcrumb_div #mini_logo img {
-	margin: 5px;
-	padding: 5px;
-}
-
-#main #breadcrumb_div a{
-	color: #6c757e;
-}
-
-#main #breadcrumb_div ul { 
-	list-style-type: none; 
-	margin-left: 20px;
-}
-
-#main #breadcrumb_div ul li {
-	float: left;
-	margin-right: 20px;
-}
-
-#main #breadcrumb_div #submenu .submenu_item{
-    float: right;
-    line-height: normal;
-    width: 110px;
-    margin: 4px;	
-}
-
-#main #breadcrumb_div #submenu  .circle_submenu {
-    margin: 14px 10px 0 0;
-    width: 25px;
-    height: 25px;
-    float: left;
-    background-color: #c180b7;    
-}
-
-#main #breadcrumb_div #submenu .number_submenu {
-	font-size: 26px;
-	color: #5c636c;
-}
-
-#main #breadcrumb_div #submenu .text_submenu {
-    font-size: 12px;
-    color: #a5acb4;
-    margin: -6px;
 }
 
 #main_chart{
@@ -528,6 +277,7 @@ svg text, .nvtooltip {
     position: absolute;
     left: -15px;
     top: -15px;
+    max-width: inherit;
 	opacity: 0.1;
 }
 
@@ -538,8 +288,8 @@ svg text, .nvtooltip {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	margin: 0 15px;
-	padding: 30px 0 0 0;
-	height: 60px;
+	padding: 16px 0 0 0;
+	height: 74px;
 	text-shadow: 
 		0 0 1px #fff, 
 		0 1px 2px rgba(0,0,0,0.3);
@@ -700,6 +450,7 @@ svg text, .nvtooltip {
     left: -10px;
     top: -10px;
 	opacity: 0.1;
+    max-width: inherit;
 }
 
 .ch-grid-apps .ch-info .views {
@@ -718,6 +469,7 @@ svg text, .nvtooltip {
 
 .ch-grid-apps .ch-info .mini-menu {
 	margin-top: 2px;
+    margin-left: 0px;
 }
 
 .ch-grid-apps .ch-info .mini-menu li {
@@ -745,6 +497,7 @@ svg text, .nvtooltip {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	padding: 4px 0;
+    height: 20px;
 	text-shadow: 
 		0 0 1px #fff, 
 		0 1px 2px rgba(0,0,0,0.3);
@@ -849,7 +602,7 @@ svg text, .nvtooltip {
 
 /* //////////////////////  Table  /////////////////////// */
 .table {
-	padding: 0 5%;
+	width: 100%;
 }
 
 .table caption + thead tr:first-child th, .table caption + thead tr:first-child td, .table colgroup + thead tr:first-child th, .table colgroup + thead tr:first-child td, .table thead:first-child tr:first-child th, .table thead:first-child tr:first-child td {
@@ -869,9 +622,16 @@ border-top: 1px solid #dddddd;
   font-size: 12px;
 }
 
-.table tfoot td{
-  line-height: 30px;
-  padding-top: 30px;
+.table tfoot td {
+    text-align: center;
+    margin: 0px;
+    padding: 1rem 0 0 0;
+    line-height: 1.4rem;
+}
+
+.table tfoot td input {
+    display: inline-block;
+    margin: 0px;
 }
 
 .pagination {
@@ -1046,7 +806,7 @@ input[type=text], input[type=password] {
 }
 
 #tools .item {
-	width: 90px;
+	width: 100px;
 	float: left;
 	line-height: 30px;
 }
@@ -1152,7 +912,7 @@ input[type=text], input[type=password] {
     padding: 0px 10px 18px 10px;
     border-radius: 20px;
     width: 169px;
-    height: 60px;
+    height: 80px;
     line-height: 60px;
     margin: 20px;
     float: left;
@@ -1239,6 +999,10 @@ input[type=text], input[type=password] {
 	margin: 0 40px;
     list-style-type: none;
 	
+}
+
+#properties #privacity .token {
+    display: inline-block;
 }
 
 #properties #selected #background-object {
@@ -1358,6 +1122,7 @@ opacity: 0.6;
 	float: left;
     font-size: 10px;
     color: red;
+    width: 100%;
 }
 
 .loading {

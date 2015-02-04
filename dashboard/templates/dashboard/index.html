@@ -1,4 +1,4 @@
-{% extends "basev1.html" %}
+{% extends "structure.html" %}
 
 {% comment "License" %}
 
@@ -131,7 +131,7 @@ $(function() {
     {% endfor %}
 				</ul>
 
-</div>   
+</div>
 
 <div>
     <div class="two_blocks">
@@ -147,6 +147,7 @@ $(function() {
 </div> 
 <div class="clear"></div>
 </br></br>
+{% comment %}
 <!--
 <div class="zebra">
     <div class="two_blocks">
@@ -164,7 +165,9 @@ $(function() {
 </div> 
 <div class="clear"></div>
 -->
-<div>
+{% endcomment %}
+
+<div class="zebra">
     <h1>Últimos registros</h1>
         <table class="footable table">
         <thead>

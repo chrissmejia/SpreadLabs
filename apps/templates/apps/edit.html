@@ -1,4 +1,4 @@
-{% extends "basev1.html" %}
+{% extends "structure.html" %}
 
 {% comment "License" %}
 
@@ -502,14 +502,13 @@
             	<h1>Nuevo enlace</h1>
                 <form id="url-add" action="#" method="post">
                     Nombre: <input type="text" class="name" name="name" value="">
-                    </br></br>
                     {% if app.campaign.membership.own_domain and domain and domain.app = app %}
                     http://{{domain.domain}}/ 
                     {% else %}
                     https://spreadlabs.com/clients/app/{{ app.id }}/
                     {% endif %}
                     <input type="text" class="token" name="token" value="">
-                    </br></br>
+                    </br>
                     <button id="send_url" type="submit" class="delete_b">Guardar</button>
                 </form>
             </div>

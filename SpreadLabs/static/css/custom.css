@@ -1,0 +1,286 @@
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                             //
+//    SpreadLabs - Social media suite                                                          //
+//    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com     //
+//                                                                                             //
+//    This program is free software: you can redistribute it and/or modify                     //
+//    it under the terms of the GNU Affero General Public License as published                 //
+//    by the Free Software Foundation, either version 3 of the License, or                     //
+//    (at your option) any later version.                                                      //
+//                                                                                             //
+//    This program is distributed in the hope that it will be useful,                          //
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of                           //
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                            //
+//    GNU Affero General Public License for more details.                                      //
+//                                                                                             //
+//    You should have received a copy of the GNU Affero General Public License                 //
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.                    //
+//                                                                                             //
+/////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+@import url(http://fonts.googleapis.com/css?family=Nunito:300);
+
+body{
+	background-color: #3fa9e0;
+	font-family: Nunito;
+}
+
+body.unlogged {
+    background-color: #fff;
+}
+
+h1 {
+	font-weight: normal;
+	font-size: 20px;
+	color: #6c757e;
+	padding: 30px;
+}
+
+h2 {
+	font-weight: normal;
+	font-size: 18px;
+	color: #6c757e;
+	padding: 10px 40px;
+}
+
+h3 {
+	font-weight: normal;
+	font-size: 16px
+}
+
+/* Foundation fluid */
+.row {
+    max-width: none;
+}
+
+.circle {
+	border-radius: 50%;
+}
+
+/* Chart Font Fix */
+svg text, .nvtooltip {
+	font-family: Nunito !important;
+    font-weight: lighter !important;
+}
+
+/*/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// Head ////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+#head {
+	background-color: #ffffff;
+	height: 4.2rem;
+	width: 100%;
+}
+
+#head #logo {
+	margin: 0.9rem 0rem;
+	display: inline-block;
+}
+
+#head #user_credential{
+	width: 12.5rem;
+    margin: 0.3rem 0rem;
+    padding: 0.24rem 0.8rem;
+    border-radius: 0.4rem;
+    background-color: #ffffff;
+}
+
+#head #user_credential:hover{
+    background-color: #f6f6f6;
+}
+
+#head #user_credential img{
+    float: left;
+}
+
+#head #user_credential #usermain:hover{
+	background-color: #f7f7f7;
+}
+
+#head #user_credential div {
+    width: 6.5rem;
+    margin-left: 1rem;
+}
+
+#head #user_credential div, #head #user_credential a {
+	color: #a5acb4;
+}
+
+#head #user_credential a:hover {
+	color: #6c757e;
+}
+
+#head #user_credential .primary {
+	font-size: 0.9rem;
+}
+
+#head #user_credential .secondary {
+	font-size: 0.7rem;
+}
+
+#head #user_credential #close, #head #user_credential #password {
+    display: none;
+}
+
+#head #user_credential:hover #close, #head #user_credential:hover #password {
+    display: inline-block;
+}
+
+
+#head #user_credential #name, #head #user_credential #agency {
+    display: inline-block;
+}
+
+#head #user_credential:hover #name, #head #user_credential:hover #agency {
+    display: none;
+}
+
+/*/////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////// Right Menu /////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////*/
+
+#left_menu{
+	width: 5rem;
+	background-color: #3fa9e0;
+	float: left;
+	position: absolute;
+	z-index: 0;
+}
+
+#left_menu .item{
+	color: #0d6c9e;
+}
+
+.color_purple{
+	color: #7b4b74;
+}
+
+#sub_menu a:nth-of-type(1) .item{
+	margin-top: 2rem;
+}
+.menu .item{
+	margin: 0.3rem;
+	padding: 0.3rem;
+	text-align: center;
+	border-radius: 0.5rem;
+}
+
+.menu .item img{
+}
+
+.item .name{
+	font-size: 0.68rem;
+}
+
+
+/*/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////// Content ///////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+#main {
+	margin-left: 5rem;
+	background-color: #f3f3f3;
+	border-top-style: solid;
+	border-top-width: 0.1rem;
+	border-top-color: #c180b7;
+}
+
+.unlogged #main {
+    margin: 0 0 8rem 0;
+	background-color: #fff;
+}
+
+/*//////////////////////////////////// Breadcrumb ///////////////////////////////////////*/
+
+#main #breadcrumb {
+	height: 4rem;
+	line-height: 4rem;
+	width: 100%;
+	background-color: #f3f3f3;
+	position: relative;
+	border-bottom-width: 0.1rem;
+	border-bottom-color: #c180b7;
+}
+
+#main #breadcrumb #breadcrumb_path #mini_logo {
+	background-color: #3fa9e0;
+    float: left;
+	line-height: 1rem;
+	margin-right: 2rem;
+    margin-left: -6rem;
+    z-index: -2;
+    position: relative;
+}
+
+#main #breadcrumb #breadcrumb_path #mini_logo img {
+	padding: 0.74rem;
+}
+
+#main #breadcrumb #breadcrumb_path a{
+	color: #6c757e;
+}
+
+#main #breadcrumb #breadcrumb_path #breadcrumb_list {
+	list-style-type: none;
+	padding: 1.2rem 0rem;
+    margin: 0rem;
+}
+
+#main #breadcrumb #breadcrumb_path #breadcrumb_list li {
+	display: inline-block;
+	margin-right: 2rem;
+}
+
+#main #breadcrumb #submenu .submenu_item{
+    line-height: normal;
+    width: 9rem;
+    margin: 0.4rem;
+}
+
+#main #breadcrumb #submenu  .circle_submenu {
+    margin: 0.8rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    float: left;
+    background-color: #c180b7;
+}
+
+#main #breadcrumb #submenu .number_submenu {
+    margin-top: 0.2rem;
+	font-size: 1.6rem;
+	color: #5c636c;
+}
+
+#main #breadcrumb #submenu .text_submenu {
+    font-size: 0.8rem;
+    color: #a5acb4;
+    margin: -0.5rem;
+}
+
+
+
+
+
+#main_chart{
+	background-color: #ffffff;
+}
+
+#main_extra_head {
+	position: relative;
+	margin-right: 70px;
+}
+
+#main_extra_head #sub_menu{
+	position: absolute;
+	height: 300px;
+	width: 70px;
+	right: -70px;
+	top: 0px;
+
+	background-color: #c180b7
+}

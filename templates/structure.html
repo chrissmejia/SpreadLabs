@@ -1,0 +1,132 @@
+{% comment "License" %}
+
+    SpreadLabs - Social media suite
+    Copyright (C) 2015  Christopher Mejia Montoya - me@chrissmejia.com - chrissmejia.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+{% endcomment %}
+{% load admin_static %}
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="SpreadLabs Social Media Suite">
+    <meta name="author" content="ChrissMejia">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="{% static "foundation-5.5.1/css/foundation.css" %}" rel="stylesheet">
+    <link href="{% static "css/v1/general.css" %}" rel="stylesheet">
+    <link href="{% static "css/custom.css" %}" rel="stylesheet">
+    <script src="{% static "foundation-5.5.1/js/vendor/modernizr.js" %}"></script>
+    <script src="{% static "foundation-5.5.1/js/vendor/jquery.js" %}"></script>
+    <script src="{% static "js/jquery-ui.js" %}"></script>
+
+    {% if user.is_authenticated %}
+        <script src="{% static "js/spreadlabs/scroll.js" %}"></script>
+    {% endif %}
+
+    {% block extrahead %}{% endblock %}
+  </head>
+  <body class="es{% if not user.is_authenticated %} unlogged{% endif %}">
+
+      <div id="head" class="row">
+        <div class="columns large-6">
+            <a id="logo" href="{% url 'dashboard:index' %}">
+                <img src="{% static "images/v1/logo.jpg" %}">
+            </a>
+        </div>
+        <div class="columns large-6">
+    	    {% if user.is_authenticated %}
+        		<div id="user_credential" class="right">
+                    <img class="circle" src="https://graph.facebook.com/{{ user.profile.facebook_id }}/picture">
+		        	<div id="name" class="primary clearfix">{{ user.first_name }}</div>
+                    <div id="agency" class="secondary clearfix">{{ user.profile.agency }}</div>
+			        <div id="close" class="primary clearfix"><a href="{% url 'accounts:logout' %}" class="text_button" title="Logout">Cerrar sesión</a></div>
+                    <div id="password" class="secondary clearfix"><a href="{% url 'accounts:password' %}" class="text_button" title="Cambiar contraseña">Cambiar contraseña</a></div>
+		        </div>
+		    {% endif %}
+        </div>
+      </div>
+	    {% if user.is_authenticated %}
+        <div class="menu" id="left_menu">
+        	<a href="{% url 'dashboard:index' %}">
+        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        		<img src="{% static "images/v1/menu/dashboard.png" %}" width="30">
+        		<div class="name">Dashboard</div>
+        	</div>
+        	</a>
+
+        	<a href="{% url 'apps:index' %}">
+        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        		<img src="{% static "images/v1/menu/apps.png" %}" width="30">
+        		<div class="name">Apps</div>
+        	</div>
+        	</a>
+
+        	<a href="{% url 'records:index' %}">
+        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        		<img src="{% static "images/v1/menu/records.png" %}" width="30">
+        		<div class="name">Registros</div>
+        	</div>
+        	</a>
+
+        	<a href="{% url 'stats:index' %}">
+        	<div class="item hover" color_normal="#3fa9e0" color_hover="#5db7e6">
+        		<img src="{% static "images/v1/menu/stats.png" %}" width="30">
+        		<div class="name">Estadísticas</div>
+        	</div>
+        	</a>
+        </div>
+		{% endif %}
+        <div id="main">
+
+            <div id="breadcrumb" class="row">
+                <div class="columns large-10">
+                    <div id="breadcrumb_path">
+                	    <div id="mini_logo">
+                            <a href="{% url 'dashboard:index' %}">
+                                <img src="{% static "images/v1/mini_logo.jpg" %}">
+                            </a>
+                        </div>
+                        <ul id="breadcrumb_list">
+			                {% block breadcrumbs %}{% endblock %}
+    		            </ul>
+                    </div>
+                </div>
+                <div class="columns large-2">
+        		    {% if apps_count %}
+            		    <div id="submenu" class="right">
+                		    <div class="submenu_item">
+            	    	    	<div class="circle_submenu circle"></div> <div class="number_submenu">{{ apps_count }}</div><div class="text_submenu">Aplicaci{{ apps_count|pluralize:"ón,ones" }}</div>
+    	        	        </div>
+    		            </div>
+    		        {% endif %}
+	    	    </div>
+            </div>
+
+            <div id="content" class="row">
+                {% block content %}
+                {% endblock %}
+            </div>
+
+        </div>
+    
+    <script src="{% static "foundation-5.5.1/js/foundation.min.js" %}"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>
