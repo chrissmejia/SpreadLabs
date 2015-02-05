@@ -20,28 +20,28 @@
 
 {% load admin_static %}
         	<a href="{% url 'stats:app' app.id %}">
-        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/sub/home.png" %}" width="30">
         		<div class="name color_purple">General</div>
         	</div>
         	</a>
 
         	<a href="{% url 'stats:app_environment' app.id %}">
-        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/sub/browser.png" %}" width="30">
         		<div class="name color_purple">Ambiente</div>
         	</div>
         	</a>
 
         	<a href="{% url 'stats:app_system' app.id %}">
-        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/sub/system.png" %}" width="30">
         		<div class="name color_purple">Sistema</div>
         	</div>
         	</a>
 
         	<a href="{% url 'stats:app_advanced' app.id %}">
-        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/sub/html5.png" %}" width="30">
         		<div class="name color_purple">Avanzado</div>
         	</div>

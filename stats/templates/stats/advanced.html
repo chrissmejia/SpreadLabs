@@ -59,7 +59,7 @@ $(function() {
 {% endblock %}
 {% block content %}
 
-<div id="main_extra_head">
+<div id="main_extra_head" class="large-12">
     <div id="main_chart" class="loading">
 	    <img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
     </div>
@@ -68,7 +68,7 @@ $(function() {
     </div>
     <div class="clear"></div>
 </div>
-<div id="global_data_div">
+<div id="global_data_div" class="large-12">
     <div class="submenu_item_five"><div class="number_submenu">{{ webgl_count }}</div><div class="text_submenu">3D</div></div>
     <div class="submenu_item_five"><div class="number_submenu">{{ svg_count }}</div><div class="text_submenu">Vectores</div></div>
     <div class="submenu_item_five"><div class="number_submenu">{{ canvas_count }}</div><div class="text_submenu">Gráficos avanzados</div></div>

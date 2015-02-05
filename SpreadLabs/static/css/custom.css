@@ -196,11 +196,16 @@ svg text, .nvtooltip {
     -o-transition: all 1s;
 }
 
+#sub_menu.menu .item {
+    background-color: #c180b7;
+}
+
 .menu .item:hover {
     background-color: #5db7e6;
 }
 
-.menu .item img{
+#sub_menu.menu .item:hover {
+    background-color: #d68bca;
 }
 
 .item .name{
@@ -209,7 +214,7 @@ svg text, .nvtooltip {
 
 
 /*/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////// Content ///////////////////////////////////////////
+//////////////////////////////////// Main Content /////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////*/
 
 
@@ -250,7 +255,8 @@ svg text, .nvtooltip {
     position: fixed;
     top: 0rem;
     border-bottom-style: solid;
-    z-index: 1000
+    z-index: 1000;
+    background-color: #fff;
 }
 
 #main #breadcrumb #breadcrumb_path #mini_logo {
@@ -261,6 +267,7 @@ svg text, .nvtooltip {
     margin-left: -0.9375rem;
     position: relative;
     width: 0rem;
+    opacity: 0;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -269,6 +276,7 @@ svg text, .nvtooltip {
 
 #main #breadcrumb.sticky #breadcrumb_path #mini_logo {
     width: 4.4rem;
+    opacity: 100;
 }
 
 #main #breadcrumb #breadcrumb_path #mini_logo.sticky {
@@ -293,7 +301,7 @@ svg text, .nvtooltip {
 	margin-right: 2rem;
 }
 
-#main #breadcrumb #submenu .submenu_item{
+#main #breadcrumb #submenu .submenu_item {
     line-height: normal;
     width: 9rem;
     margin: 0.4rem;
@@ -317,4 +325,116 @@ svg text, .nvtooltip {
     font-size: 0.8rem;
     color: #a5acb4;
     margin: -0.5rem;
+}
+
+/*//////////////////////////////////// Main Chart ///////////////////////////////////////*/
+
+#main_extra_head {
+	position: relative;
+	padding-right: 5rem;
+}
+
+#main_extra_head #sub_menu{
+	position: absolute;
+	height: 100%;
+	width: 5rem;
+    right: 0rem;
+	top: 0rem;
+
+	background-color: #c180b7
+}
+
+#main_chart{
+	background-color: #ffffff;
+}
+
+/*//////////////////////////////////// Global Data ///////////////////////////////////////*/
+
+#global_data_div {
+	background-color: #fff;
+	height: 7rem;
+}
+
+#global_data_div .submenu_item {
+	width: 17%;
+	float: left;
+	border-left-width: 0.3rem;
+	border-left-style: solid;
+	padding-left: 2%;
+	margin-top: 1.6rem;
+}
+
+#global_data_div .submenu_item:nth-of-type(1){
+	margin-left: 16%;
+}
+
+#global_data_div .number_submenu {
+	font-size: 2rem;
+	color: #5c636c;
+}
+
+#global_data_div .text_submenu {
+	font-size: 1rem;
+	color: #a5acb4;
+	margin-top: -3px;
+}
+
+#global_data_div #views {
+	border-left-color: #91c46b;
+}
+
+#global_data_div #visits {
+	border-left-color: #297d7d;
+}
+
+#global_data_div #visitors {
+	border-left-color: #3fa8df;
+}
+
+#global_data_div #records {
+	border-left-color: #f15822;
+}
+
+#global_data_div .submenu_item_five {
+	width: 17%;
+	float: left;
+	border-left-width: 3px;
+	border-left-style: solid;
+	padding-left: 2%;
+	margin-top: 20px;
+}
+
+#global_data_div .submenu_item_five:nth-of-type(1){
+	margin-left: 3%;
+}
+
+#global_data_div .submenu_item_five:nth-of-type(1){
+	border-left-color: #91c46b;
+}
+
+#global_data_div .submenu_item_five:nth-of-type(2){
+	border-left-color: #c180b7;
+}
+
+#global_data_div .submenu_item_five:nth-of-type(3){
+	border-left-color: #f15822;
+}
+
+#global_data_div .submenu_item_five:nth-of-type(4){
+	border-left-color: #3fa8df;
+}
+
+#global_data_div .submenu_item_five:nth-of-type(5){
+	border-left-color: #297d7d;
+}
+
+
+/*///////////////////////////////////// Content ////////////////////////////////////////*/
+
+.unlogged #content {
+    width: 30rem;
+    margin: 0 auto;
+}
+
+#body_content {
 }

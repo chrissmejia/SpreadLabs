@@ -20,28 +20,28 @@
 
 {% load admin_static %}
         	<a href="{% url 'stats:campaign' campaign.id %}">
-        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/sub/home.png" %}" width="30">
         		<div class="name color_purple">General</div>
         	</div>
         	</a>
 
         	<a href="{% url 'stats:campaign_environment' campaign.id %}">
-        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/sub/browser.png" %}" width="30">
         		<div class="name color_purple">Ambiente</div>
         	</div>
         	</a>
 
         	<a href="{% url 'stats:campaign_system' campaign.id %}">
-        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/sub/system.png" %}" width="30">
         		<div class="name color_purple">Sistema</div>
         	</div>
         	</a>
 
         	<a href="{% url 'stats:campaign_advanced' campaign.id %}">
-        	<div class="item hover" color_normal="#c180b7" color_hover="#d68bca">
+        	<div class="item">
         		<img src="{% static "images/v1/menu/sub/html5.png" %}" width="30">
         		<div class="name color_purple">Avanzado</div>
         	</div>
