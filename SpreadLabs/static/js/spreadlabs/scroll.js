@@ -39,13 +39,11 @@ $( document ).ready(function() {
         var aTop = $('#head').height();
 
         if($(this).scrollTop()>aTop){
-            if($("#main").css("margin-left") == rem(5) + "px"){
-                $("#breadcrumb").addClass("sticky");
+            if($("#main").css("left") == rem(5) + "px"){
                 $("#main").addClass("full");
             }
         } else {
-            if($("#main").css("margin-left") == '0px'){
-                $("#breadcrumb").removeClass("sticky");
+            if($("#main").css("left") == '0px'){
                 $("#main").removeClass("full");
                }
             }

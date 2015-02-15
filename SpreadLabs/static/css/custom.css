@@ -55,6 +55,10 @@ h3 {
     max-width: none;
 }
 
+.inner_row {
+	max-width: 62.5rem;
+}
+
 .circle {
 	border-radius: 50%;
 }
@@ -173,7 +177,6 @@ svg text, .nvtooltip {
 	background-color: #3fa9e0;
 	float: left;
 	position: absolute;
-	z-index: 0;
 }
 
 #left_menu .item{
@@ -219,7 +222,9 @@ svg text, .nvtooltip {
 
 
 #main {
-	margin-left: 5rem;
+    left: 5rem;
+    right: 0rem;
+    position: absolute;
 	background-color: #f3f3f3;
 	border-top-style: solid;
 	border-top-width: 0.1rem;
@@ -231,7 +236,7 @@ svg text, .nvtooltip {
 }
 
 #main.full {
-    margin: 0;
+    left: 0;
 }
 
 .unlogged #main {
@@ -251,11 +256,11 @@ svg text, .nvtooltip {
 	border-bottom-color: #c180b7;
 }
 
-#main #breadcrumb.sticky {
+#main.full #breadcrumb {
     position: fixed;
     top: 0rem;
     border-bottom-style: solid;
-    z-index: 1000;
+    z-index: 1000000;
     background-color: #fff;
 }
 
@@ -265,8 +270,8 @@ svg text, .nvtooltip {
 	line-height: 1rem;
 	margin-right: 2.6rem;
     margin-left: -0.9375rem;
-    position: relative;
-    width: 0rem;
+    position: absolute;
+    left: -4.4rem;
     opacity: 0;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -274,12 +279,9 @@ svg text, .nvtooltip {
     -o-transition: all 0.5s;
 }
 
-#main #breadcrumb.sticky #breadcrumb_path #mini_logo {
-    width: 4.4rem;
+#main.full #breadcrumb #breadcrumb_path #mini_logo {
+    left: 0.9rem;
     opacity: 100;
-}
-
-#main #breadcrumb #breadcrumb_path #mini_logo.sticky {
 }
 
 #main #breadcrumb #breadcrumb_path #mini_logo img {
@@ -293,7 +295,15 @@ svg text, .nvtooltip {
 #main #breadcrumb #breadcrumb_path #breadcrumb_list {
 	list-style-type: none;
 	padding: 1.2rem 0rem;
-    margin: 0rem;
+    margin-left: 1.4rem;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+#main.full #breadcrumb  #breadcrumb_path #breadcrumb_list {
+    margin-left: 5.4rem;
 }
 
 #main #breadcrumb #breadcrumb_path #breadcrumb_list li {
@@ -352,20 +362,12 @@ svg text, .nvtooltip {
 
 #global_data_div {
 	background-color: #fff;
-	height: 7rem;
+	padding-bottom: 2rem;
 }
 
 #global_data_div .submenu_item {
-	width: 17%;
-	float: left;
 	border-left-width: 0.3rem;
 	border-left-style: solid;
-	padding-left: 2%;
-	margin-top: 1.6rem;
-}
-
-#global_data_div .submenu_item:nth-of-type(1){
-	margin-left: 16%;
 }
 
 #global_data_div .number_submenu {
@@ -376,7 +378,7 @@ svg text, .nvtooltip {
 #global_data_div .text_submenu {
 	font-size: 1rem;
 	color: #a5acb4;
-	margin-top: -3px;
+	margin-top: -0.2rem;
 }
 
 #global_data_div #views {
@@ -393,6 +395,10 @@ svg text, .nvtooltip {
 
 #global_data_div #records {
 	border-left-color: #f15822;
+}
+
+#global_data_div .close {
+	border-right: #EBEBEB 0.3rem solid;
 }
 
 #global_data_div .submenu_item_five {
@@ -430,6 +436,10 @@ svg text, .nvtooltip {
 
 
 /*///////////////////////////////////// Content ////////////////////////////////////////*/
+
+#content {
+	background-color: #fff;
+}
 
 .unlogged #content {
     width: 30rem;

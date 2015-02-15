@@ -39,7 +39,7 @@ $(function() {
 {% endblock %}
 {% block content %}
 
-<div id="main_extra_head" class="large-12">
+<div id="main_extra_head" class="row">
     <div id="main_chart" class="loading">
 	    <img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
     </div>
@@ -48,9 +48,9 @@ $(function() {
     </div>
     <div class="clear"></div>
 </div>
-<div id="global_data_div" class="large-12">
-	{% for k, v in sorted_resolutions.items %}
-	<div class="submenu_item_five"><div class="number_submenu">{{ v }}</div><div class="text_submenu">{% if k == "NonexNone" %}Desconocida{% else %}{{ k }}{% endif %}</div></div>
+<div id="global_data_div" class="row">
+    {% for k, v in sorted_resolutions.items %}
+    <div class="submenu_item_five columns submenu_item large-3"><div class="number_submenu">{{ v }}</div><div class="text_submenu">{% if k == "NonexNone" %}Desconocida{% else %}{{ k }}{% endif %}</div></div>
     {% endfor %}
 </div> 
 <div id="body_content">

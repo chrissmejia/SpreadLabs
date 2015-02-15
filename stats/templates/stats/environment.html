@@ -38,7 +38,7 @@ $(function() {
 {% endblock %}
 {% block content %}
 
-<div id="main_extra_head" class="large-12">
+<div id="main_extra_head" class="row">
     <div id="main_chart" class="loading">
 	    <img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
     </div>
@@ -47,12 +47,12 @@ $(function() {
     </div>
     <div class="clear"></div>
 </div>
-<div id="global_data_div" class="large-12">
-    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Chrome|default:"0" }}</div><div class="text_submenu">Chrome</div></div>
-    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Firefox|default:"0" }}</div><div class="text_submenu">Firefox</div></div>
-    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Safari|default:"0" }}</div><div class="text_submenu">Safari</div></div>
-    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.IE|default:"0" }}</div><div class="text_submenu">Internet Explorer</div></div>
-    <div class="submenu_item_five"><div class="number_submenu">{{ user_agents.Other|default:"0" }}</div><div class="text_submenu">Otro</div></div>
+<div id="global_data_div" class="row">
+    <div class="submenu_item_five columns submenu_item large-3"><div class="number_submenu">{{ user_agents.Chrome|default:"0" }}</div><div class="text_submenu">Chrome</div></div>
+    <div class="submenu_item_five columns submenu_item large-2"><div class="number_submenu">{{ user_agents.Firefox|default:"0" }}</div><div class="text_submenu">Firefox</div></div>
+    <div class="submenu_item_five columns submenu_item large-2"><div class="number_submenu">{{ user_agents.Safari|default:"0" }}</div><div class="text_submenu">Safari</div></div>
+    <div class="submenu_item_five columns submenu_item large-2"><div class="number_submenu">{{ user_agents.IE|default:"0" }}</div><div class="text_submenu">Internet Explorer</div></div>
+    <div class="submenu_item_five columns submenu_item large-3 close"><div class="number_submenu">{{ user_agents.Other|default:"0" }}</div><div class="text_submenu">Otro</div></div>
 </div> 
 <div id="body_content">
 	<h1>Campañas</h1>

@@ -37,7 +37,7 @@ $(function() {
 {% endblock %}
 {% block content %}
 
-<div id="main_extra_head" class="large-12">
+<div id="main_extra_head" class="row">
     <div id="main_chart" class="loading">
 	    <img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
     </div>
@@ -45,10 +45,10 @@ $(function() {
         {% include "stats/menus/main.html" %}
     </div>
 </div>
-<div id="global_data_div" class="large-12">
-    <div id="views" class="submenu_item"><div class="number_submenu">{{ views_count }}</div><div class="text_submenu">Vista{{ views_count|pluralize }}</div></div>
-    <div id="visits" class="submenu_item"><div class="number_submenu"><img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading2.gif"></div><div class="text_submenu">Visitas</div></div>
-    <div id="visitors" class="submenu_item"><div class="number_submenu">{{ visitors_count }}</div><div class="text_submenu">Visitante{{ visitors_count|pluralize }}</div></div>
+<div id="global_data_div" class="row inner_row">
+    <div id="views" class="columns submenu_item large-4"><div class="number_submenu">{{ views_count }}</div><div class="text_submenu">Vista{{ views_count|pluralize }}</div></div>
+    <div id="visits" class="columns submenu_item large-4"><div class="number_submenu"><img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading2.gif"></div><div class="text_submenu">Visitas</div></div>
+    <div id="visitors" class="columns submenu_item large-4 close"><div class="number_submenu">{{ visitors_count }}</div><div class="text_submenu">Visitante{{ visitors_count|pluralize }}</div></div>
 </div> 
 <div id="body_content">
 	<h1>Campañas</h1>

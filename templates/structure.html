@@ -27,15 +27,15 @@
     <meta name="author" content="ChrissMejia">
     <title>{% block title %}{% endblock %}</title>
 
-    <link href="{% static "foundation-5.5.1/css/foundation.css" %}" rel="stylesheet">
-    <link href="{% static "css/v1/general.css" %}" rel="stylesheet">
-    <link href="{% static "css/custom.css" %}" rel="stylesheet">
-    <script src="{% static "foundation-5.5.1/js/vendor/modernizr.js" %}"></script>
-    <script src="{% static "foundation-5.5.1/js/vendor/jquery.js" %}"></script>
-    <script src="{% static "js/jquery-ui.js" %}"></script>
+    <link href="{% static 'foundation-5.5.1/css/foundation.css' %}" rel="stylesheet">
+<!--    <link href="{% static 'css/v1/general.css' %}" rel="stylesheet">
+-->    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    <script src="{% static 'foundation-5.5.1/js/vendor/modernizr.js' %}"></script>
+    <script src="{% static 'foundation-5.5.1/js/vendor/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
 
     {% if user.is_authenticated %}
-        <script src="{% static "js/spreadlabs/scroll.js" %}"></script>
+        <script src="{% static 'js/spreadlabs/scroll.js' %}"></script>
     {% endif %}
 
     {% block extrahead %}{% endblock %}
@@ -45,7 +45,7 @@
       <div id="head" class="row">
         <div class="columns large-6">
             <a id="logo" href="{% url 'dashboard:index' %}">
-                <img src="{% static "images/v1/logo.jpg" %}">
+                <img src="{% static 'images/v1/logo.jpg' %}">
             </a>
         </div>
         <div class="columns large-6">
@@ -64,28 +64,28 @@
         <div class="menu" id="left_menu">
         	<a href="{% url 'dashboard:index' %}">
         	<div class="item">
-        		<img src="{% static "images/v1/menu/dashboard.png" %}" width="30">
+        		<img src="{% static 'images/v1/menu/dashboard.png' %}" width="30">
         		<div class="name">Dashboard</div>
         	</div>
         	</a>
 
         	<a href="{% url 'apps:index' %}">
         	<div class="item">
-        		<img src="{% static "images/v1/menu/apps.png" %}" width="30">
+        		<img src="{% static 'images/v1/menu/apps.png' %}" width="30">
         		<div class="name">Apps</div>
         	</div>
         	</a>
 
         	<a href="{% url 'records:index' %}">
         	<div class="item">
-        		<img src="{% static "images/v1/menu/records.png" %}" width="30">
+        		<img src="{% static 'images/v1/menu/records.png' %}" width="30">
         		<div class="name">Registros</div>
         	</div>
         	</a>
 
         	<a href="{% url 'stats:index' %}">
         	<div class="item">
-        		<img src="{% static "images/v1/menu/stats.png" %}" width="30">
+        		<img src="{% static 'images/v1/menu/stats.png' %}" width="30">
         		<div class="name">Estadísticas</div>
         	</div>
         	</a>
@@ -98,7 +98,7 @@
                     <div id="breadcrumb_path">
                 	    <div id="mini_logo">
                             <a href="{% url 'dashboard:index' %}">
-                                <img src="{% static "images/v1/mini_logo.jpg" %}">
+                                <img src="{% static 'images/v1/mini_logo.jpg' %}">
                             </a>
                         </div>
                         <ul id="breadcrumb_list">
@@ -117,14 +117,14 @@
 	    	    </div>
             </div>
 
-            <div id="content" class="row">
+            <div id="content">
                 {% block content %}
                 {% endblock %}
             </div>
 
         </div>
     
-    <script src="{% static "foundation-5.5.1/js/foundation.min.js" %}"></script>
+    <script src="{% static 'foundation-5.5.1/js/foundation.min.js' %}"></script>
     <script>
       $(document).foundation();
     </script>

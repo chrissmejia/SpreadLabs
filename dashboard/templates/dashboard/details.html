@@ -46,14 +46,14 @@ $(function () {
 {% endblock %}
 {% block content %}
 
-<div id="main_chart" class="loading large-12">
+<div id="main_chart" class="loading row">
 	<img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading.gif">
 </div>
-<div id="global_data_div large-12">
-    <div id="views" class="submenu_item"><div class="number_submenu">{{ views_count }}</div><div class="text_submenu">Vista{{ views_count|pluralize }}</div></div>
-    <div id="visits" class="submenu_item"><div class="number_submenu"><img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading2.gif"></div><div class="text_submenu">Visitas</div></div>
-    <div id="visitors" class="submenu_item"><div class="number_submenu">{{ visitors_count }}</div><div class="text_submenu">Visitante{{ visitors_count|pluralize }}</div></div>
-    <div id="records" class="submenu_item"><div class="number_submenu">{{ records_count }}</div><div class="text_submenu">Registro{{ records_count|pluralize }}</div></div>
+<div id="global_data_div" class="row inner_row">
+    <div id="views" class="columns submenu_item large-3"><div class="number_submenu">{{ views_count }}</div><div class="text_submenu">Vista{{ views_count|pluralize }}</div></div>
+    <div id="visits" class="columns submenu_item large-3"><div class="number_submenu"><img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading2.gif"></div><div class="text_submenu">Visitas</div></div>
+    <div id="visitors" class="columns submenu_item large-3"><div class="number_submenu">{{ visitors_count }}</div><div class="text_submenu">Visitante{{ visitors_count|pluralize }}</div></div>
+    <div id="records" class="columns submenu_item large-3 close"><div class="number_submenu">{{ records_count }}</div><div class="text_submenu">Registro{{ records_count|pluralize }}</div></div>
 </div> 
 
 <div class="two_blocks">
