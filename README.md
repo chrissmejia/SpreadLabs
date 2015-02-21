@@ -1,7 +1,7 @@
 # SpreadLabs
 Social Media Suite
 
-Welcome, this is a project I coded meanwhile I was learning Python/Django a couple of years ago, after some considerations I choose to release as AGLP software, in that way, can help others too.
+Welcome, this is a project I coded meanwhile I was learning Python/Django a couple of years ago, after some considerations I choose to release as AGPL software, in that way, can help others too.
 
 This is how it works: https://www.youtube.com/watch?v=QmCvYQHhPQA
 
