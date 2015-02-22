@@ -47,8 +47,6 @@ $( document ).ready(function() {
                 $("#main").removeClass("full");
                }
             }
-            $(window).trigger('resize');
         });
-
-
+        $(window).trigger('resize');
 });
