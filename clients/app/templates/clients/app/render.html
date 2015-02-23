@@ -72,7 +72,7 @@ $(document).ready(function()
         "uniqueId", 
         function(value, element) {
         	return eval($.ajax({
-                url: "{% url 'clients:app:check' app.id %}",
+                url: "{% url 'app:check' app.id %}",
                 type: 'POST',
                 async: false,
                 data: {id: value, csrfmiddlewaretoken: $("#register input[name='csrfmiddlewaretoken']").val()},
@@ -85,7 +85,7 @@ $(document).ready(function()
         "uniqueCellphone", 
         function(value, element) {
         	return eval($.ajax({
-                url: "{% url 'clients:app:check' app.id %}",
+                url: "{% url 'app:check' app.id %}",
                 type: 'POST',
                 async: false,
                 data: {cellphone: value, csrfmiddlewaretoken: $("#register input[name='csrfmiddlewaretoken']").val()},
@@ -98,7 +98,7 @@ $(document).ready(function()
         "uniqueEmail", 
         function(value, element) {
         	return eval($.ajax({
-                url: "{% url 'clients:app:check' app.id %}",
+                url: "{% url 'app:check' app.id %}",
                 type: 'POST',
                 async: false,
                 data: {email: value, csrfmiddlewaretoken: $("#register input[name='csrfmiddlewaretoken']").val()},
@@ -372,7 +372,7 @@ $(document).ready(function()
     {
     	silverlight = "None";
     }
-    $.post( "{% url 'clients:app:env_update' hit.id %}", {
+    $.post( "{% url 'app:env_update' hit.id %}", {
     	csrfmiddlewaretoken: '{{ csrf_token }}',
     	window_height : window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
     	window_width : window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
@@ -396,7 +396,7 @@ $(document).ready(function()
     
 function tracking() {
 	setTimeout(function() {
-        $.post( "{% url 'clients:app:hit_update' hit.id %}", {
+        $.post( "{% url 'app:hit_update' hit.id %}", {
         	csrfmiddlewaretoken: '{{ csrf_token }}',
         }).success(function(){
             tracking();
@@ -434,7 +434,7 @@ tracking();
         	{% if image_link.type == 'external'  %}
             	<a target="_top" href="{{image_link.link}}"><img src="{{ MEDIA_URL }}{{image_link.image}}"></a>
         	{% elif image_link.type == 'internal'  %}
-            	<a href="{% url 'clients:app:app_show' app.id source image_link.internal_page.id %}"><img src="{{ MEDIA_URL }}{{image_link.image}}"></a>
+            	<a href="{% url 'app:app_show' app.id source image_link.internal_page.id %}"><img src="{{ MEDIA_URL }}{{image_link.image}}"></a>
         	{% else %}
             	<a href="#" {% if external  %} onclick="send({{image_link.internal_page.id}})" {% endif %}><img src="{{ MEDIA_URL }}{{image_link.image}}" border="0"></a>
         	{% endif %}
@@ -458,7 +458,7 @@ tracking();
     {% endif %}
     
     {% if inputs and campaign.membership.form_tool %}
-        <form id="register" action="{% url 'clients:app:save' app.id source %}" method="post">
+        <form id="register" action="{% url 'app:save' app.id source %}" method="post">
         {% csrf_token %}
         {% for input in inputs %}
             <style>
