@@ -19,34 +19,66 @@
 {% endcomment %}
 
 {% load admin_static %}
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>SpreadLabs :: Coming Soon</title>
-
-<link rel="stylesheet" type="text/css" href="{% static "soon/css/styles.css" %}" />
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="SpreadLabs Social Media Suite">
+    <meta name="author" content="ChrissMejia">
+    <title>SpreadLabs</title>
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'foundation-5.5.1/css/foundation.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/styles.css' %}" />
+    <script src="{% static 'foundation-5.5.1/js/vendor/jquery.js' %}"></script>
+    <script src="{% static 'foundation-5.5.1/js/vendor/modernizr.js' %}"></script>
+    <script src="{% static 'home/js/app.js' %}"></script>
 </head>
-
 <body>
 
-<div id="page">
-
-    <h1>Coming Soon</h1>
-    
-    <img id="logo" src="{% static "soon/img/logo.png" %}" width="100%" alt="SpreadLabs">
-        
-    <h2>Subscribe</h2>
-    <div id="social">
-        <a href="https://facebook.com/SpreadLabs" target="_blank">
-            <img src="{% static "soon/img/facebook.png" %}" alt="SpreadLabs">
-        </a>        
-        <a href="https://twitter.com/SpreadLabs" target="_blank">
-            <img src="{% static "soon/img/twitter.png" %}" alt="SpreadLabs">
-        </a>
+<div id="header" class="row">
+    <div class="large-12 text-right medium-only-text-center small-only-text-center">
+        <a class="link" href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank"><img src="{% static 'home/img/AGPLv3_Logo.svg' %}" alt="AGPL"></a>
+        <a class="link" href="https://github.com/chrissmejia/SpreadLabs" target="_blank"><img src="{% static 'home/img/github.svg' %}" alt="Github"></a>
+        <a class="link" href="https://facebook.com/SpreadLabs" target="_blank"><img src="{% static 'home/img/facebook.svg' %}" alt="Facebook"></a>
+        <a class="link" href="https://twitter.com/SpreadLabs" target="_blank"><img src="{% static 'home/img/twitter.svg' %}" alt="Twitter"></a>
     </div>
 </div>
 
+<div id="content" class="row">
+    <div class="large-6 columns description">
+        <img id="logo" src="{% static 'home/img/logo.svg' %}" width="100%" alt="SpreadLabs">
+        <h2 class="text-center">Social media suite</h2>
+        <div class="text">Welcome to SpreadLabs, the Python/Django suite that lets you to create minisites and social media apps easy and done in minutes using drag and drop technology and totally free.</div>
+    </div>
+    <div class="large-6 columns">
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/QmCvYQHhPQA" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<div id="footer" class="row">
+    <div class="large-6 medium-7 small-12 columns text-left small-only-text-center">
+        <a class="link" href="http://chrissmejia.com" target="_blank"><img src="{% static 'home/img/chrissmejia_os.svg' %}" alt="ChrissMejia Open Source"></a>
+    </div>
+    <div class="large-6 medium-5 hide-for-small-only columns text-right">
+        <div class="row">
+            <a class="link" href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank">License</a> |
+            <a class="link" href="http://chrissmejia.com" target="_blank">Find more</a>
+        </div>
+        <div class="row">
+            An OpenSource AGPL Project
+        </div>
+    </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60174385-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

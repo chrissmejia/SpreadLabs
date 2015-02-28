@@ -19,101 +19,94 @@
 //                                                                                             //
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
-
-*{
-	margin:0;
-	padding:0;
-}
+@import url(http://fonts.googleapis.com/css?family=Nunito:300);
 
 body{
-	color:#eee;
-	background:url('../img/page_bg.jpg') no-repeat center top #1b1b1c;
-	font:15px Calibri,Arial,sans-serif;
-	border-top:5px solid #212121;
+	font-family: Nunito;
+	background: url('../img/cm_background.svg');
+	background-size: cover;
 }
 
-#page{
-	width:74%;
-	margin:30px auto 0 auto;
+h2 {
+	font-family: Nunito;
+	color: #5f7d91;
+	margin: 0 0 1.4rem 0;
 }
 
-#page #logo{
+.description {
+	padding: 2rem;
 }
 
-#page h1,
-#page h2{
-	text-indent:-9999px;
-	overflow:hidden;
-	height:84px;
-	background:url('../img/coming_soon.png') no-repeat;
-    width: 330px;
-    margin: 0 auto;
+.text {
+	color: #586f7f;
+	font-size: 1.2rem;
 }
 
-#page h2{
-	height:60px;
-	background:url('../img/get_notified.png') no-repeat;
+#header {
+    padding-top: 3rem;
 }
 
-#page #social{
-    position: relative;
-    top: 0px;
-    width: 142px;
-    margin: 0 auto;
+.link {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.link:hover {
+	opacity: 0.6;
+}
+
+#header .link img{
+    height: 3rem;
 }
 
 
-#page #social img{
-	float: left;
+#content {
+    padding: 6rem 0;
 }
 
-#page form{
-	background-color:#181819;
-	display:block;
-	height:31px;
-	padding:10px;
-	position:relative;
-	width:323px;
-	margin-left:-7px;
-
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
+#footer {
+	position: fixed;
+  bottom: 0rem;
+  width: 100%;
+  left: 0rem;
+  z-index: 1000000;
+  padding: 1.4rem 1rem 1rem 1rem;
+  color: #b4d6ed;
+	background-color: #4299d4;
+	max-width: inherit;
 }
 
-#email{
-	background:url('../img/submit_form.png') no-repeat;
-	border:none;
-	color:#888888;
-	height:31px;
-	left:10px;
-	line-height:31px;
-	padding-left:8px;
-	position:absolute;
-	text-shadow:1px 1px 0 #FFFFFF;
-	top:10px;
-	width:215px;
-	outline:none;
+#footer img {
+	height: 3rem;
 }
 
-#submitButton{
-	background:url('../img/submit_form.png') no-repeat right top;
-	border:none;
-	cursor:pointer;
-	height:31px;
-	left:236px;
-	line-height:31px;
-	position:absolute;
-	text-indent:-99999px;
-	text-transform:uppercase;
-	top:10px;
-	width:96px;
+#footer a {
+  color: #fff;
 }
 
-#submitButton:hover{
-	background-position:right bottom;
+@media only screen and (max-width: 64em) { 
+    
+    #header {
+        padding-top: 1rem;
+    }
+
+    #header .link img{
+        height: 2rem;
+    }
+
+    #footer {
+      position: inherit;
+    }
+
+
 }
 
-.clear{
-	clear:both;
+@media only screen and (min-width: 40.063em) and (max-width: 64em) { 
+    
+    .row {
+        max-width: 32.5rem;
+    }
+
 }
