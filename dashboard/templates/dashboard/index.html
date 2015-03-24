@@ -64,33 +64,11 @@ $(function() {
     <div id="visits" class="columns submenu_item large-3"><div class="number_submenu"><img class="load" border="0" src="{{ STATIC_URL }}images/v1/loading2.gif"></div><div class="text_submenu">Visitas</div></div>
     <div id="visitors" class="columns submenu_item large-3"><div class="number_submenu">{{ visitors_count }}</div><div class="text_submenu">Visitante{{ visitors_count|pluralize }}</div></div>
     <div id="records" class="columns submenu_item large-3 close"><div class="number_submenu">{{ records_count }}</div><div class="text_submenu">Registro{{ records_count|pluralize }}</div></div>
-</div> 
-<div id="body_content">
+</div>
+<div class="row">
+<div id="filter_selector" class="large-12">
 	<h1>Campañas</h1>
-<!--    <ul class="items" title="Ver campaña">
-    {% for campaign in campaigns %}
-        {% if campaign.fb_online %}
-        <li class="item">
-            <a href="{% url 'dashboard:details' campaign_id=campaign.id %}">
-                <div class="pic circle"><img class="circle" src="https://graph.facebook.com/{{ campaign.facebook_page_id }}/picture?return_ssl_resources=1&width=100&height=100" width="100"></div>
-                <div class="name">{{ campaign.name }}</div>
-                <div class="membership">{{ campaign.membership.name }}</div>
-            </a>
-        </li>
-	    {% endif %}
-        {% if not campaign.fb_online %}
-        <li class="item">
-                <div class="pic circle"><img class="circle" src="https://graph.facebook.com/{{ campaign.facebook_page_id }}/picture?return_ssl_resources=1&width=100&height=100" width="100"></div>
-                <div class="name">{{ campaign.name }}</div>
-                <div class="membership">Sin permisos de Facebook</div>
-        </li>
-	    {% endif %}
-    {% endfor %}
-    </ul>
-    <div class="clear"></div>
--->
-
-				<ul class="ch-grid">
+	<ul class="ch-grid">
     {% for campaign in campaigns %}
         {% if campaign.fb_online %}
 					<li>
@@ -129,45 +107,24 @@ $(function() {
 					</li>
 	    {% endif %}
     {% endfor %}
-				</ul>
-
+	</ul>
+</div>
 </div>
 
-<div>
-    <div class="two_blocks">
+<div class="row">
+    <div class="large-6 medium-6 small-12 columns">
         <h1>Vistas por campaña</h1>
         {% include_container "piechart_campaign_views" 300 '100%'%}
         <div class="go"><a href="{% url 'stats:index' %}" title="Ir a estadísticas">Ir a estadísticas</a></div>
     </div>
-    <div class="two_blocks">
+    <div class="large-6 medium-6 small-12 columns">
         <h1>Registros por campaña</h1>
         {% include_container "piechart_campaign_records" 300 '100%'%}
         <div class="go"><a href="{% url 'records:index' %}" title="Ir a registros">Ir a registros</a></div>    
     </div>
 </div> 
-<div class="clear"></div>
-</br></br>
-{% comment %}
-<!--
-<div class="zebra">
-    <div class="two_blocks">
-        <h1>Vistas por dispositivo</h1>
-        {% include_container "piechart_chartdata_devices" 300 '100%'%}
-        </br></br>
-    </div>
-    <div class="two_blocks">
-        <h1>Resoluciones de pantalla</h1>
-        {% include_container "piechart_chartdata_resolution" 300 '100%'%}
-    </div>
-    </br>
-    <div class="go"><a href="{% url 'stats:index' %}" title="Ir a estadísticas">Ir a estadísticas</a></div>
-    </br></br>
-</div> 
-<div class="clear"></div>
--->
-{% endcomment %}
 
-<div class="zebra">
+<div class="zebra row">
     <h1>Últimos registros</h1>
         <table class="footable table">
         <thead>
@@ -203,7 +160,5 @@ $(function() {
     </table>
     </br>
     <div class="go"><a href="{% url 'records:index' %}" title="Ir a registros">Ir a registros</a></div>
-    </br></br>
 </div>
-<div class="clear"></div>                                 
 {% endblock %}

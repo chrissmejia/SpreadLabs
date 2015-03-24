@@ -56,18 +56,18 @@ $(function () {
     <div id="records" class="columns submenu_item large-3 close"><div class="number_submenu">{{ records_count }}</div><div class="text_submenu">Registro{{ records_count|pluralize }}</div></div>
 </div> 
 
-<div class="two_blocks">
-    <h1>Facebook</h1>
-    {% include_container "piechart_facebook" 300 '100%'%}
-    <div class="gray" align="center"><small>(Tiempo PST)</small></div>
-    </br></br>
+<div class="row">
+    <div class="large-6 medium-6 small-12 columns">
+        <h1>Facebook</h1>
+        {% include_container "piechart_facebook" 300 '100%'%}
+        <div class="gray" align="center"><small>(Tiempo PST)</small></div>
+    </div>
+    <div class="large-6 medium-6 small-12 columns">
+        <h1>Interacción con aplicaciones</h1>
+        {% include_container "piechart_apps" 300 '100%'%}
+        <div class="go"><a href="{% url 'apps:campaign' campaign_id=campaign.id %}" title="Ir a aplicaciones {{ campaign.name }}">Ir a aplicaciones {{ campaign.name }}</a></div>
+    </div>
 </div>
-<div class="two_blocks">
-    <h1>Interacción con aplicaciones</h1>
-    {% include_container "piechart_apps" 300 '100%'%}
-    <div class="go"><a href="{% url 'apps:campaign' campaign_id=campaign.id %}" title="Ir a aplicaciones {{ campaign.name }}">Ir a aplicaciones {{ campaign.name }}</a></div>
-</div>
-<div class="clear"></div>
 
 <div>
     <h1>Últimos registros</h1>
