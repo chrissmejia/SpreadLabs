@@ -8,7 +8,7 @@ You can see a video of how it works at: https://www.spreadlabs.com/
 At that time I don't put so much attention on the good tecniques of frontend, I'm going to be pushing fixes on my free time, if you wanna help in any way, please be free.
 
 ### Todo List:
-* Migrate to OpenSloth (OpenSloth.org)
+* Migrate to OpenSloth (http://OpenSloth.org)
 * Update chart plugins
 * Improve the JS code
 * Get the JS compresor working
